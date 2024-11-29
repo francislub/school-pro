@@ -121,6 +121,139 @@ export default function GridFeatures(){
                         </CardContent>
                     </Card>
                 </div>
+                {/* added  */}
+                <div className="grid md:grid-cols-2 gap-6 lg:gap-10mt-12">
+                    {/* AI VIDEO EDITING CARD */}
+                    <Card className="relative overflow-hidden">
+                        <CardHeader>
+                            <CardTitle className="text-2xl">
+                                {features[2].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[2].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="relative bg-muted rounded-lg p-2">
+                              <div className="absolute left-0 top-0 bottom-0 w-16 bg-background/95 border-r flex flex-col gap-2 p-2">
+                              {Array.from({ length:8 }).map((_, i) => (
+                                <div 
+                                key={i}
+                                className="w-full aspect-square rounded bg-muted-foreground/10 flex items-center justify-center"
+                                />
+                              ))}
+
+                              </div>
+                              <Image 
+                              src={features[2].image}
+                              width={600}
+                              height={400}
+                              alt={features[2].title}
+                              className="rounded ml-16"
+                              />
+                            </div>
+                        </CardContent>
+                    </Card>
+                     {/* AI VIDEO Generating CARD */}
+                     <div className="space-y-4">
+                     <Card className="relative overflow-hidden">
+                     <CardHeader>
+                            <CardTitle className="text-2xl">
+                                {features[3].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[3].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent className="">
+                            {/* image */}
+                            <Image 
+                              src={features[3].image}
+                              width={600}
+                              height={400}
+                              alt={features[3].title}
+                              className="rounded w-full"
+                              />
+                        </CardContent>
+                    </Card>
+                    <Card className="relative overflow-hidden">
+                     <CardHeader>
+                            <CardTitle className="text-2xl">
+                                {features[4].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[4].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent className="">
+                            {/* image */}
+                            <Image 
+                              src={features[4].image}
+                              width={600}
+                              height={400}
+                              alt={features[4].title}
+                              className="rounded w-full"
+                              />
+                        </CardContent>
+                    </Card>
+                     </div>
+                </div>
+
+                {/* lastly */}
+                <div className="grid md:grid-cols-2 gap-6 lg:gap-10mt-12">
+                    {/* AI VIDEO EDITING CARD */}
+                    <Card className="relative overflow-hidden">
+                        <CardHeader>
+                            <CardTitle className="text-2xl">
+                                {features[5].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[5].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="relative bg-muted rounded-lg p-2">
+                              <div className="absolute left-0 top-0 bottom-0 w-16 bg-background/95 border-r flex flex-col gap-2 p-2">
+                              {Array.from({ length:8 }).map((_, i) => (
+                                <div 
+                                key={i}
+                                className="w-full aspect-square rounded bg-muted-foreground/10 flex items-center justify-center"
+                                />
+                              ))}
+
+                              </div>
+                              <Image 
+                              src={features[5].image}
+                              width={600}
+                              height={400}
+                              alt={features[5].title}
+                              className="rounded ml-16"
+                              />
+                            </div>
+                        </CardContent>
+                    </Card>
+                     {/* AI VIDEO Generating CARD */}
+                     <Card className="relative overflow-hidden">
+                     <CardHeader>
+                            <CardTitle className="text-2xl">
+                                {features[6].title}
+                            </CardTitle>
+                            <p className="text-muted-foreground">
+                                {features[6].description}
+                            </p>
+                        </CardHeader>
+                        <CardContent className="">
+                            {/* image */}
+                            <Image 
+                              src={features[6].image}
+                              width={600}
+                              height={400}
+                              alt={features[6].title}
+                              className="rounded w-full"
+                              />
+                        </CardContent>
+                    </Card>
+                </div>
 
             </div>
 
