@@ -30,11 +30,11 @@ export default function Login() {
   return (
     <div className="w-full lg:grid h-screen lg:min-h-[600px] lg:grid-cols-2 relative ">
       <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <div className="absolute top-5 left-5">
+        <div className="mx-auto grid w-[350px] gap-6 mt-10 md:mt-0">
+          <div className="absolute left-1/3 top-10 md:top-5 md:left-5">
             <Logo/>
           </div>
-          <div className="grid gap-2 text-center">
+          <div className="grid gap-2 text-center mt-10 md:mt-0">
             <h1 className="text-3xl font-bold">Login to your Account</h1>
           </div>
           <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
