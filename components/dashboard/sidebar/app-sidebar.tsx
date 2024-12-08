@@ -79,19 +79,19 @@ export default function AppSidebar() {
       items: [
         {
           title: "Student Directory",
-          url: "/students/directory",
+          url: "/dashboard/students",
         },
         {
           title: "Fees",
-          url: "/students/fees",
+          url: "/dashboard/students/fees",
         },
         {
           title: "Student Ids",
-          url: "/students/ids",
+          url: "/dashboard/students/ids",
         },
         {
           title: "Attendance",
-          url: "/students/attendance",
+          url: "/dashboard/students/attendance",
         },
       ],
     },
