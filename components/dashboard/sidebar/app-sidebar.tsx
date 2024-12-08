@@ -82,16 +82,16 @@ export default function AppSidebar() {
           url: "/students/directory",
         },
         {
-          title: "Enrollment",
-          url: "/students/enrollment",
+          title: "Fees",
+          url: "/students/fees",
+        },
+        {
+          title: "Student Ids",
+          url: "/students/ids",
         },
         {
           title: "Attendance",
           url: "/students/attendance",
-        },
-        {
-          title: "Performance",
-          url: "/students/performance",
         },
       ],
     },
