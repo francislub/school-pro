@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useSearchParams } from 'next/navigation';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
