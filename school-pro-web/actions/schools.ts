@@ -4,7 +4,7 @@ import axios from "axios"
 import { SchoolProps } from "@/components/dashboard/forms/school/school-onboarding-form";
 
 const BASE_API_URL = process.env.API_URL || "";
-const api = axios.create({
+export const api = axios.create({
     baseURL: BASE_API_URL,
     timeout: 5000,
     headers: {

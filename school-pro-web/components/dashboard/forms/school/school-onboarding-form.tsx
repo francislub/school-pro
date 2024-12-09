@@ -1,38 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormHeader from "../FormHeader";
-import FormFooter from "../FormFooter";
 import ImageInput from "@/components/FormInputs/ImageInput";
 import TextInput from "@/components/FormInputs/TextInput";
-import TextArea from "@/components/FormInputs/TextAreaInput";
 import toast from "react-hot-toast";
-import PasswordInput from "@/components/FormInputs/PasswordInput";
-import FormSelectInput from "@/components/FormInputs/FormSelectInput";
-import CountryDropdown from "@/components/FormInputs/country";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { Send } from "lucide-react";
-import { createSchool } from "@/app/actions/schools";
+import { createSchool } from "@/actions/schools";
 
 
 export type SelectOptionProps = {
   label: string;
   value: string;
-};
-type SingleStudentFormProps = {
-  editingId?: string | undefined;
-  initialData?: any | undefined | null;
 };
 
 export type SchoolProps = {

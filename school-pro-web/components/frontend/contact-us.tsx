@@ -9,6 +9,8 @@ import TextArea from "../FormInputs/TextAreaInput";
 import PhoneInput from "../FormInputs/PhoneInput";
 import FormSelectInput from "../FormInputs/FormSelectInput";
 import CountryDropdown from "../FormInputs/country";
+import toast from "react-hot-toast";
+import { createContact } from "@/actions/admin";
 
 export type ContactProps = {
   fullName: string;
@@ -23,7 +25,7 @@ export type ContactProps = {
   message: string;
 };
 const ContactUs: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -32,6 +34,21 @@ const ContactUs: React.FC = () => {
   } = useForm<ContactProps>();
   async function onSubmit(data: ContactProps) {
     console.log(data);
+    data.country = selectedCountry;
+    data.role = selectedRole;
+    data.media = selectedMedia;
+    data.students = Number(data.students);
+    console.log(data);
+    try {
+      setLoading(true);
+      console.log(data)
+      const res = await createContact(data);
+      console.log(res)
+      toast.success("Successfully Created")
+      
+    } catch (error) {
+      setLoading(false);
+    }
   }
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -80,8 +97,10 @@ const ContactUs: React.FC = () => {
       value:"other"
     },
   ];
-  const [selectedRole, setSelectedRole] = useState<any>(null)
-  const [selectedMedia, setMedia] = useState<any>(media[0])
+  const [selectedRole, setSelectedRole] = useState<any>(roles[0]);
+  const [selectedMedia, setMedia] = useState<any>(media[0]);
+  
+  
   return (
     <section className="bg-gray-100 py-16 px-4">
       <div className="max-w-6xl mx-auto">
@@ -93,7 +112,7 @@ const ContactUs: React.FC = () => {
             <TextInput
               label="Your Full Name"
               register={register}
-              name="name"
+              name="fullName"
               errors={errors}
               placeholder="Eng Francis"
             />
@@ -163,14 +182,14 @@ const ContactUs: React.FC = () => {
             <TextArea
               label="Please share with us the key pain points you want to solve"
               register={register}
-              name="features"
+              name="message"
               errors={errors}
             />
 
             <SubmitButton
             buttonIcon={Send}
               title="Submit"
-              loading={isLoading}
+              loading={Loading}
               loadingTitle="Sending in please wait..."
             />
           </form>
