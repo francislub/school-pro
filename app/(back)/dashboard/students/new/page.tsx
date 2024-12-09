@@ -5,7 +5,7 @@ import SingleStudentForm from "@/components/dashboard/forms/students/student-for
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import InfoBanner from "@/components/info-banner";
 
-export default function AdmissionTabs({ initialTab = "single" }: { initialTab?: string }) {
+export default function AdmissionTabs({ initialTab = "single" }: { initialTab?: string | undefined }) {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
