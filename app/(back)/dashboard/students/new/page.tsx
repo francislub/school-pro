@@ -1,5 +1,6 @@
-"use client";
+'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserPlus, Users } from 'lucide-react';
@@ -7,11 +8,10 @@ import SingleStudentForm from "@/components/dashboard/forms/students/student-for
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import InfoBanner from "@/components/info-banner";
 
-interface AdmissionTabsProps {
-  initialTab?: string;
-}
-
-function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
+export default function StudentAdmissionPage() {
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get('tab') || 'single';
+  
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
@@ -55,6 +55,4 @@ function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
     </div>
   );
 }
-
-export default AdmissionTabs;
 
