@@ -31,7 +31,7 @@ export default function AdmissionTabs() {
         </TabsList>
 
         {/* Tab Content */}
-        <Card className="border-t-4 border-blue-500 shadow">
+        <Card className="border-t-4 border-blue-600 shadow">
           <CardContent className="p-6">
             {/* Single Admission Content */}
             <TabsContent value="single" className="mt-0">

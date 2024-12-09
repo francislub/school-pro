@@ -66,8 +66,8 @@ export default function SiteFooter() {
                 <Link className="hover:underline" href="#">
                   Price Plan
                 </Link>
-                <Link className="hover:underline" href="#">
-                  Features
+                <Link className="hover:underline" href="/school-onboarding">
+                  Admin
                 </Link>
               </nav>
             </div>
