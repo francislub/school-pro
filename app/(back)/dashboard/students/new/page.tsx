@@ -5,7 +5,11 @@ import SingleStudentForm from "@/components/dashboard/forms/students/student-for
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import InfoBanner from "@/components/info-banner";
 
-export default function AdmissionTabs({ initialTab = "single" }: { initialTab?: string }) {
+interface AdmissionTabsProps {
+  initialTab?: string;
+}
+
+export default function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
@@ -35,13 +39,13 @@ export default function AdmissionTabs({ initialTab = "single" }: { initialTab?: 
           <CardContent className="p-6">
             {/* Single Admission Content */}
             <TabsContent value="single" className="mt-0">
-            <InfoBanner message="Please Make sure you have already Create the Parent, Class and Stream for this Student" type="info" />
-              <SingleStudentForm/>
+              <InfoBanner message="Please make sure you have already created the Parent, Class, and Stream for this student." type="info" />
+              <SingleStudentForm />
             </TabsContent>
 
             {/* Bulk Admission Content */}
             <TabsContent value="bulk" className="mt-0">
-              <BulkStudentForm/>
+              <BulkStudentForm />
             </TabsContent>
           </CardContent>
         </Card>
