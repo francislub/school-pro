@@ -23,6 +23,7 @@ import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import CountryDropdown from "@/components/FormInputs/country";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { Send } from "lucide-react";
+import { createSchool } from "@/app/actions/schools";
 
 
 export type SelectOptionProps = {
@@ -34,12 +35,10 @@ type SingleStudentFormProps = {
   initialData?: any | undefined | null;
 };
 
-export type StudentProps = {
-  name:string;
-  email:string,
-  password:string,
-  imageUrl:string,
-}
+export type SchoolProps = {
+  name: string;
+  logo: string
+};
 export default function SchoolOnboardingForm() {
 
   const {
@@ -47,7 +46,7 @@ export default function SchoolOnboardingForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<StudentProps>({
+  } = useForm<SchoolProps>({
     defaultValues: {
       name: "",
     },
@@ -58,11 +57,14 @@ export default function SchoolOnboardingForm() {
   const initialImage =  "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: StudentProps) {
+  async function saveStudent(data: SchoolProps) {
     try {
       setLoading(true);
-      data.imageUrl = imageUrl;
-
+      data.logo = imageUrl;
+      console.log(data)
+      const res = await createSchool(data);
+      console.log(res)
+      toast.success("Successfully Created")
       
     } catch (error) {
       setLoading(false);
@@ -90,7 +92,7 @@ export default function SchoolOnboardingForm() {
                     register={register}
                     errors={errors}
                     label="School Name"
-                    name="schoolName"
+                    name="name"
                   />
                 </div>
 
