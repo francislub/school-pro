@@ -6,14 +6,10 @@ import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-
 import InfoBanner from "@/components/info-banner";
 
 
-interface AdmissionTabsProps {
-  initialTab?: string; // Optional prop with a default value
-}
-
-export default function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
+export default function AdmissionTabs() {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
-      <Tabs defaultValue={initialTab} className="w-full">
+      <Tabs defaultValue="single" className="w-full">
         {/* Tab List */}
         <TabsList className="grid w-full grid-cols-2 mb-8">
           {/* Single Admission Tab */}
