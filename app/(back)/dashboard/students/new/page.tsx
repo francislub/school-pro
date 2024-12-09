@@ -1,13 +1,11 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { UserPlus, Users } from 'lucide-react';
+import { UserPlus, Users } from "lucide-react";
 import SingleStudentForm from "@/components/dashboard/forms/students/student-form";
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import InfoBanner from "@/components/info-banner";
 
-export default function StudentAdmissionPage({ searchParams }: { searchParams: { tab?: string } }) {
-  const initialTab = searchParams?.tab || 'single';
-
+export default function AdmissionTabs({ initialTab = "single" }: { initialTab?: string }) {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
@@ -37,16 +35,13 @@ export default function StudentAdmissionPage({ searchParams }: { searchParams: {
           <CardContent className="p-6">
             {/* Single Admission Content */}
             <TabsContent value="single" className="mt-0">
-              <InfoBanner 
-                message="Please make sure you have already created the Parent, Class, and Stream for this student." 
-                type="info" 
-              />
-              <SingleStudentForm />
+            <InfoBanner message="Please Make sure you have already Create the Parent, Class and Stream for this Student" type="info" />
+              <SingleStudentForm/>
             </TabsContent>
 
             {/* Bulk Admission Content */}
             <TabsContent value="bulk" className="mt-0">
-              <BulkStudentForm />
+              <BulkStudentForm/>
             </TabsContent>
           </CardContent>
         </Card>
