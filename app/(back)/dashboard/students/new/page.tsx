@@ -1,6 +1,8 @@
+"use client";
+
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { UserPlus, Users } from "lucide-react";
+import { UserPlus, Users } from 'lucide-react';
 import SingleStudentForm from "@/components/dashboard/forms/students/student-form";
 import BulkStudentForm from "@/components/dashboard/forms/students/bulk-student-form";
 import InfoBanner from "@/components/info-banner";
@@ -9,7 +11,7 @@ interface AdmissionTabsProps {
   initialTab?: string;
 }
 
-export default function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
+function AdmissionTabs({ initialTab = "single" }: AdmissionTabsProps) {
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
@@ -53,3 +55,6 @@ export default function AdmissionTabs({ initialTab = "single" }: AdmissionTabsPr
     </div>
   );
 }
+
+export default AdmissionTabs;
+
