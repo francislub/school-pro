@@ -11,7 +11,7 @@ import InfoBanner from "@/components/info-banner";
 export default function StudentAdmissionPage() {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get('tab') || 'single';
-  
+
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue={initialTab} className="w-full">
@@ -41,7 +41,10 @@ export default function StudentAdmissionPage() {
           <CardContent className="p-6">
             {/* Single Admission Content */}
             <TabsContent value="single" className="mt-0">
-              <InfoBanner message="Please make sure you have already created the Parent, Class, and Stream for this student." type="info" />
+              <InfoBanner 
+                message="Please make sure you have already created the Parent, Class, and Stream for this student." 
+                type="info" 
+              />
               <SingleStudentForm />
             </TabsContent>
 
@@ -55,4 +58,3 @@ export default function StudentAdmissionPage() {
     </div>
   );
 }
-
