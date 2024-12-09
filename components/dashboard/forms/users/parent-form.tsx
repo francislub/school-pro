@@ -197,7 +197,6 @@ export default function ParentForm({
     }
   }
   
-  console.log(status);
 
   return (
     <form className="" onSubmit={handleSubmit(saveStudent)}>

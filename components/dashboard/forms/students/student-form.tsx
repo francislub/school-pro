@@ -163,8 +163,6 @@ export default function SingleStudentForm({
       console.log(error);
     }
   }
-  
-  console.log(status);
 
   return (
     <form className="" onSubmit={handleSubmit(saveStudent)}>
