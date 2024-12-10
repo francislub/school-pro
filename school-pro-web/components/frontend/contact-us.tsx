@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { createContact } from "@/actions/admin";
 
 export type ContactProps = {
-  fullName: string;
+  fullname: string;
   email: string;
   phone: string;
   school: string;
@@ -52,7 +52,7 @@ const ContactUs: React.FC = () => {
   }
   const [selectedCountry, setSelectedCountry] = useState("");
 
-  const roles =[
+  const role =[
     {
       label:"Principal / Leadership / Mgmt",
       value:"principal"
@@ -97,7 +97,7 @@ const ContactUs: React.FC = () => {
       value:"other"
     },
   ];
-  const [selectedRole, setSelectedRole] = useState<any>(roles[0]);
+  const [selectedRole, setSelectedRole] = useState<any>(role[0]);
   const [selectedMedia, setMedia] = useState<any>(media[0]);
   
   
@@ -112,7 +112,7 @@ const ContactUs: React.FC = () => {
             <TextInput
               label="Your Full Name"
               register={register}
-              name="fullName"
+              name="fullname"
               errors={errors}
               placeholder="Eng Francis"
             />
@@ -168,7 +168,7 @@ const ContactUs: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-4">
             <FormSelectInput
               label="Roles"
-              options={roles}
+              options={role}
               option={selectedRole}
               setOption={setSelectedRole}
             />
