@@ -1,23 +1,22 @@
 import React from "react";
 import { columns } from "./columns";
-import { Category } from "@prisma/client";
 import DataTable from "@/components/DataTableComponents/DataTable";
-import TableHeader from "../../../../components/dashboard/Tables/TableHeader";
-import { getAllCategories } from "@/actions/categories";
+import { getAllContacts } from "@/actions/admin";
+import TableHeader from "@/components/dashboard/Tables/TableHeader";
 
 export default async function page() {
-  const categories: Category[] = (await getAllCategories()) || [];
+  const contacts = (await getAllContacts()) || [];
   return (
     <div className="p-8">
       <TableHeader
-        title="Categories"
-        linkTitle="Add Category"
-        href="/dashboard/categories/new"
-        data={categories}
-        model="category"
+        title="Contacts"
+        linkTitle="Add Contacts"
+        href="/contact=us"
+        data={contacts}
+        model="contact"
       />
       <div className="py-8">
-        <DataTable data={categories} columns={columns} />
+        <DataTable data={contacts} columns={columns} />
       </div>
     </div>
   );

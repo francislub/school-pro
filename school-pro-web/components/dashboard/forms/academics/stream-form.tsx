@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
+import { ClassCreateProps } from "@/types/types";
  
 export type ClassProps={
     name:string
@@ -31,15 +32,15 @@ export default function StreamForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ClassProps>({
+  } = useForm<ClassCreateProps>({
     defaultValues: {
-      name: initialContent || "",
+      title: initialContent || "",
     },
   });
  
   const [loading, setLoading] = useState(false);
  
-  async function saveFolder(data: ClassProps) {
+  async function saveFolder(data: ClassCreateProps) {
     // data.userId = userId;
     try {
       setLoading(true);
@@ -81,9 +82,6 @@ export default function StreamForm({
               <DialogTitle>
                 {editingId ? "Edit Stream" : "Add New Stream"}
               </DialogTitle>
-              {/* <DialogDescription>
-                Please Write your Comment here, with respect
-              </DialogDescription> */}
             </DialogHeader>
             <form className="" onSubmit={handleSubmit(saveFolder)}>
               <div className="">
@@ -93,13 +91,9 @@ export default function StreamForm({
                       register={register}
                       errors={errors}
                       label=""
-                      name="name"
+                      name="title"
                       icon={Check}
                     />
-                    {/* <IconInput
-                      onIconSelect={setSelectedIcon}
-                      selectedIcon={selectedIcon}
-                    /> */}
                   </div>
                 </div>
                 <div className="py-3">

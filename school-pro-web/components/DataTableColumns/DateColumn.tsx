@@ -52,7 +52,7 @@ export default function DateColumn({
   row: any;
   accessorKey: any;
 }) {
-  const createdAt = row.getValue(`${accessorKey}`);
+  const createdAt = row.getValue(`${accessorKey}`).toString();
   const date = getNormalDate(createdAt);
   const originalDate = new Date(createdAt);
 

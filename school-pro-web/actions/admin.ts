@@ -2,6 +2,7 @@
 
 import axios from "axios"
 import { ContactProps } from "@/components/frontend/contact-us";
+import { Contact } from "@/types/types";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -32,4 +33,14 @@ export async function deleteContact(id:string) {
     return {
         ok: true
     };
+}
+
+export async function getAllContacts() {
+    try {
+        const response = await api.get("/contacts");
+        const contacts = response.data
+        return contacts as Contact[];
+    } catch (error) {
+        console.log(error)
+    }
 }
