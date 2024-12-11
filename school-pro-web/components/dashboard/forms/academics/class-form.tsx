@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Ensure client-side rendering
 import React, { useState } from "react";
 import {
   Dialog,
@@ -13,10 +13,15 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
- 
-export type ClassProps={
-    name:string
-}
+import { createClass } from "@/actions/classes";
+import toast from "react-hot-toast";
+
+// Added 'title' to ClassProps
+export type ClassProps = {
+  name: string;
+  title: string; // <-- Added this property
+};
+
 export default function ClassForm({
   userId,
   initialContent,
@@ -34,52 +39,47 @@ export default function ClassForm({
   } = useForm<ClassProps>({
     defaultValues: {
       name: initialContent || "",
+      title: "", // <-- Initialize default value for 'title'
     },
   });
- 
+
   const [loading, setLoading] = useState(false);
- 
-  async function saveFolder(data: ClassProps) {
-    // data.userId = userId;
+
+  async function saveClass(data: ClassProps) {
+    // Add 'title' to the data object
     try {
       setLoading(true);
       if (editingId) {
-        // await updateFolderById(editingId, data);
+        // Logic for updating an existing class
+        // Example:
+        // await updateClassById(editingId, data);
         // setLoading(false);
         // toast.success("Updated Successfully!");
       } else {
-        // await createFolder(data);
-        // setLoading(false);
-        // toast.success("Successfully Created!");
+        const res = await createClass(data); // Pass 'title' with 'name'
+        setLoading(false);
+        toast.success("Class Successfully Created!");
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.error(error);
     }
   }
- 
+
   return (
     <div>
       <div className="py-1">
-      <Dialog>
+        <Dialog>
           <DialogTrigger asChild>
             {editingId ? (
               <button title="Edit Folder" className="text-blue-600">
-                <Pencil className="w-4 h-4 " />
+                <Pencil className="w-4 h-4" />
               </button>
             ) : (
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Plus className="h-4 w-4"/>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Plus className="h-4 w-4" />
                 <span className="sr-only">Add Class</span>
-                </Button>
-                // <Tooltip>
-                //     <TooltipTrigger asChild>
-                     
-                //     </TooltipTrigger>
-                //     <TooltipContent>
-                //         <p>Add Class</p>
-                //     </TooltipContent>
-                // </Tooltip>
+              </Button>
             )}
           </DialogTrigger>
 
@@ -88,25 +88,25 @@ export default function ClassForm({
               <DialogTitle>
                 {editingId ? "Edit Class" : "Add New Class"}
               </DialogTitle>
-              {/* <DialogDescription>
-                Please Write your Comment here, with respect
-              </DialogDescription> */}
             </DialogHeader>
-            <form className="" onSubmit={handleSubmit(saveFolder)}>
+            <form className="" onSubmit={handleSubmit(saveClass)}>
               <div className="">
                 <div className="space-y-3">
                   <div className="grid gap-3">
                     <TextInput
                       register={register}
                       errors={errors}
-                      label=""
+                      label="Class Name" // Updated label for clarity
                       name="name"
                       icon={Check}
                     />
-                    {/* <IconInput
-                      onIconSelect={setSelectedIcon}
-                      selectedIcon={selectedIcon}
-                    /> */}
+                    <TextInput
+                      register={register}
+                      errors={errors}
+                      label="Class Title" // Added input for 'title'
+                      name="title"
+                      icon={Check}
+                    />
                   </div>
                 </div>
                 <div className="py-3">

@@ -16,12 +16,12 @@ export type Contact = {
 
 export type ClassCreateProps ={
   title: string;
-  slug: string;
+  // slug: string;
 };
 
 export type StreamCreateProps ={
   title: string;
-  slug: string;
+  // slug: string;
   classId: string;
 }
 
@@ -30,8 +30,8 @@ export type Class ={
   title: string;
   slug: string;
   streams: Stream[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Stream ={
@@ -40,6 +40,6 @@ export type Stream ={
   slug: string;
   classId: string;
   class: Class;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
