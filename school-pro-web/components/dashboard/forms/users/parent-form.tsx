@@ -166,7 +166,7 @@ export default function ParentForm({
         toast.success("Successfully Created!");
         reset();
         // setImageUrl("/placeholder.svg");
-        // router.push("/dashboard/categories");
+        router.push("/dashboard/users/parents");
       }
     } catch (error) {
       setLoading(false);
@@ -289,7 +289,7 @@ export default function ParentForm({
                     register={register}
                     errors={errors}
                     label="Occupation"
-                    name="Occupation"
+                    name="occupation"
                   />
                 </div>
                 <div className="grid">
@@ -297,7 +297,7 @@ export default function ParentForm({
                     register={register}
                     errors={errors}
                     label="Parent Portal Password"
-                    name="Password"
+                    name="password"
                     type="Password"
                   />
                 </div>
@@ -307,7 +307,7 @@ export default function ParentForm({
                     register={register}
                     errors={errors}
                     label="Address"
-                    name="Address"
+                    name="address"
                   />
                 </div>
                 </div>

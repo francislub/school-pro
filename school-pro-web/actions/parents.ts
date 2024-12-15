@@ -14,10 +14,10 @@ const api = axios.create({
 });
 
 export async function createParents(data:ParentProps){
-    // const endpoint = '${BASE_API_URL}/v1/contacts'
+    // const endpoint = '${BASE_API_URL}/v1/parents'
    try {
    
-    const response = await api.post("/parentss",data);
+    const response = await api.post("/parents",data);
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {
