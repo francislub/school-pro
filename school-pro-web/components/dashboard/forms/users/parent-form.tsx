@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import CountryDropdown from "@/components/FormInputs/country";
+import { createParents } from "@/actions/parents";
 
 
 export type SelectOptionProps = {
@@ -32,9 +33,21 @@ type SingleStudentFormProps = {
   initialData?: any | undefined | null;
 };
 
-export type StudentProps = {
-  name:string;
+export type ParentProps = {
+  title:string;
+  firstName:string,
+  lastName:string,
+  relationship:string,
   email:string,
+  NIN:string,
+  gender:string,
+  dob:string,
+  phone:string,
+  nationality:string,
+  whatsapNo:string,
+  contactMethod:string,
+  occupation:string,
+  address:string,
   password:string,
   imageUrl:string,
 }
@@ -82,7 +95,7 @@ export default function ParentForm({
       value:"Dr."
     },
   ]
-  const [selectedTitle, setSelectedTitle ] = useState<any>(null)
+  const [selectedTitle, setSelectedTitle ] = useState<any>(titles[0])
 
   //contact
   const contactMethod =[
@@ -99,29 +112,7 @@ export default function ParentForm({
       value:"whatsap"
     },
   ]
-  const [selectedContactMethod, setSelectedContactMethod ] = useState<any>(null)
-
-    //sections/streams
-    const streams =[
-      {
-        label:"S.1A",
-        value:"123456"
-      },
-      {
-        label:"S.1B",
-        value:"1234445"
-      },
-      {
-        label:"S.2A",
-        value:"1234445"
-      },
-      {
-        label:"S.2B",
-        value:"1234445"
-      },
-    
-    ]
-    const [selectedStream, setSelectedStream ] = useState<any>(null)
+  const [selectedContactMethod, setSelectedContactMethod ] = useState<any>(contactMethod[0])
 
     //Gender
     const genders =[
@@ -135,34 +126,16 @@ export default function ParentForm({
       },
     
     ]
-    const [selectedGender, setSelectedGender ] = useState<any>(null)
-
-    //Religion
-    const religions =[
-      {
-        label:"Roman Catholic",
-        value:"Catholic"
-      },
-      {
-        label:"Anglican",
-        value:"Anglican"
-      },
-      {
-        label:"Islam",
-        value:"Islam"
-      },
-    
-    ]
-    const [selectedReligion, setSelectedReligion ] = useState<any>(null)
+    const [selectedGender, setSelectedGender ] = useState<any>(genders[0])
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<StudentProps>({
+  } = useForm<ParentProps>({
     defaultValues: {
-      name: "",
+      firstName: "",
     },
   });
   const router = useRouter();
@@ -171,10 +144,14 @@ export default function ParentForm({
   const initialImage = initialData?.imageUrl || "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: StudentProps) {
+  async function saveStudent(data: ParentProps) {
     try {
       setLoading(true);
       data.imageUrl = imageUrl;
+      data.title = selectedTitle.value;
+      data.relationship = selectedRelationship.value;
+      data.gender = selectedGender.value;
+      data.contactMethod = selectedContactMethod.value;
 
       if (editingId) {
         // await updateCategoryById(editingId, data);
@@ -184,10 +161,10 @@ export default function ParentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        // await createCategory(data);
-        // setLoading(false);
-        // toast.success("Successfully Created!");
-        // reset();
+        const res = await createParents(data);
+        setLoading(false);
+        toast.success("Successfully Created!");
+        reset();
         // setImageUrl("/placeholder.svg");
         // router.push("/dashboard/categories");
       }
@@ -275,14 +252,14 @@ export default function ParentForm({
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <TextInput
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-3">
+                {/* <TextInput
                     register={register}
                     errors={errors}
                     label="Phone No"
                     name="phone"
                     type="tel"
-                  />
+                  /> */}
                 <TextInput
                     register={register}
                     errors={errors}
@@ -293,6 +270,7 @@ export default function ParentForm({
                   <TextInput
                     register={register}
                     errors={errors}
+                    type="tel"
                     label="Whatsap No"
                     name="whatsapNo"
                   />
