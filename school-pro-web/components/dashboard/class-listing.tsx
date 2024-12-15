@@ -22,6 +22,7 @@ import {
 import ClassForm from "./forms/academics/class-form"
 import StreamForm from "./forms/academics/stream-form"
 import { Class } from "@/types/types"
+import Image from "next/image"
 
 interface ClassItem{
     id: number
@@ -56,6 +57,8 @@ const sections: SectionsData = {
 };
 export default function ClassListing({classes}:{classes:Class[]}){
     const [selectedClass, setSelectedClass] = React.useState<string>("");
+    const streams = classes.find((c) => c.id === selectedClass)?.streams ||[]
+
     return (
         <div className="grid lg:grid-cols-[280px_1fr] h-[calc(100vh-2rem)] max-h-[calc(100vh-2rem)] gap-2 p-4 pt-2">
          <div className="flex flex-col gap-2">
@@ -92,7 +95,7 @@ export default function ClassListing({classes}:{classes:Class[]}){
                                 <div className="flex w-full items-center justify-between gap-2">
                                     <span className="font-medium"> {classItem.title}
                                     </span>
-                                    <span className="text-xs"> {classItem.streams.length} sections
+                                    <span className="text-xs"> {classItem.streams.length} streams
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -135,7 +138,8 @@ export default function ClassListing({classes}:{classes:Class[]}){
 
          </div>
         {/* //  Main content */}
-        <div className="flex flex-col gap-2 rounded-lg border bg-card">
+        {selectedClass ?(
+            <div className="flex flex-col gap-2 rounded-lg border bg-card">
             <div className="flex items-center justify-between gap-2 px-4 py-2 border-b">
                 <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -153,28 +157,91 @@ export default function ClassListing({classes}:{classes:Class[]}){
                     </div>
                </div>
                 </div>
-                <StreamForm />
+                <StreamForm classId={selectedClass}/>
             </div>
-            {/* still going on */}
-        {/* <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-         {sections[selectedClass]?.map((section) => (
-            <Card key={section.name}>
-                <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{section.name}</CardTitle>
-                <CardDescription>
-                    Class Teacher: {section.classTeacher}
-                </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Users className="h-4 w-4"/>
-                        {section.students} students
+            {/* stream part */}
+            {streams.length >0 ? (
+                <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {classes.find((c) => c.id === selectedClass)?.streams.map((section) => (
+                    <Card key={section.title}>
+                        <CardHeader className="pb-2">
+                            <div className="flex items-center justify-between">
+                            <CardTitle className="text-lg">{section.title}</CardTitle>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                    <Button variant="ghost"
+                                    size="icon"
+                                    className="h-7 w-7"
+                                    >
+                                        <Pencil className="h-3 w-3"/>
+                                        <span className="sr-only">
+                                            Edit Stream
+                                        </span>
+                                    </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Edit Stream</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                                </TooltipProvider>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                        <Button variant="ghost"
+                                    size="icon"
+                                    className="h-7 w-7"
+                                    >
+                                        <Trash2 className="h-3 w-3"/>
+                                        <span className="sr-only">
+                                            Delete Stream
+                                        </span>
+                                    </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                        <p>Delete Stream</p>
+                                    </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </div>
+                        <CardDescription>
+                            Class Teacher: Francis
+                            {/* {section.classTeacher} */}
+                        </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Users className="h-4 w-4"/>
+                                {/* {section.students}  */}
+                                50 students
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+                </div>
+            ):(
+                <div className="flex items-center min-h-96 justify-center">
+
+                    <div className="flex flex-col items-center justify-center">
+                        <Image src={"/images/empty-box.png"}
+                        alt="empty"
+                        width={412}
+                        height={412}
+                        />
+                        <p>
+                        No Stream For this class
+                        </p>
                     </div>
-                </CardContent>
-            </Card>
-         ))}
-        </div> */}
+                </div>
+            )}
         </div>
+        ):(
+            <div className="">
+                <p>Select the class to see the stream Details</p>
+            </div>
+        )}
      </div>
     );
 }

@@ -13,17 +13,19 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
-import { ClassCreateProps } from "@/types/types";
+import { ClassCreateProps, StreamCreateProps } from "@/types/types";
+import { createStream } from "@/actions/classes";
+import toast from "react-hot-toast";
  
 export type ClassProps={
     name:string
 }
 export default function StreamForm({
-  userId,
+  classId,
   initialContent,
   editingId,
 }: {
-  userId?: string;
+  classId: string;
   initialContent?: string;
   editingId?: string;
 }) {
@@ -32,7 +34,7 @@ export default function StreamForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ClassCreateProps>({
+  } = useForm<StreamCreateProps>({
     defaultValues: {
       title: initialContent || "",
     },
@@ -40,8 +42,8 @@ export default function StreamForm({
  
   const [loading, setLoading] = useState(false);
  
-  async function saveFolder(data: ClassCreateProps) {
-    // data.userId = userId;
+  async function saveStream(data: StreamCreateProps) {
+    data.classId = classId;
     try {
       setLoading(true);
       if (editingId) {
@@ -49,9 +51,10 @@ export default function StreamForm({
         // setLoading(false);
         // toast.success("Updated Successfully!");
       } else {
-        // await createFolder(data);
-        // setLoading(false);
-        // toast.success("Successfully Created!");
+        const res = await createStream(data);
+        setLoading(false);
+        toast.success("Successfully Created!");
+        reset()
       }
     } catch (error) {
       setLoading(false);
@@ -83,7 +86,7 @@ export default function StreamForm({
                 {editingId ? "Edit Stream" : "Add New Stream"}
               </DialogTitle>
             </DialogHeader>
-            <form className="" onSubmit={handleSubmit(saveFolder)}>
+            <form className="" onSubmit={handleSubmit(saveStream)}>
               <div className="">
                 <div className="space-y-3">
                   <div className="grid gap-3">
