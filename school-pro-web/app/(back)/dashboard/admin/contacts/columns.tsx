@@ -7,23 +7,33 @@ import ActionColumn from "@/components/DataTableColumns/ActionColumn";
 import { Contact } from "@/types/types";
 import ContactInfoModal from "@/components/DataTableColumns/ContactCard";
 export const columns: ColumnDef<Contact>[] = [
+  {
+    accessorKey: "user",
+    header: "View",
+    cell: ({ row }) => {
+      const contact = row.original;
+      return (
+        <div className="">
+          <h2 className="font-medium capitalize">{contact.fullname.toLowerCase()}</h2>
+          <p className="text-xmstext-muted-foreground">{contact.school}</p>
+        </div>
+      )
+    }
+  },
+  {
+    accessorKey: "email-phone",
+    header: "View",
+    cell: ({ row }) => {
+      const contact = row.original;
+      return (
+        <div className="">
+          <h2 className="font-medium">{contact.email.toLocaleLowerCase()}</h2>
+          <p className="text-xmstext-muted-foreground">{contact.phone}</p>
+        </div>
+      )
+    }
+  },
   
-  {
-    accessorKey: "fullname",
-    header: ({ column }) => <SortableColumn column={column} title="Name" />,
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "phone",
-    header: "Phone No",
-  },
-  {
-    accessorKey: "school",
-    header: "School Name",
-  },
   {
     accessorKey: "country",
     header: "Country",

@@ -31,7 +31,7 @@ interface Contact {
   school: string;
   country: string;
   schoolPage: string;
-  students: string;
+  students: number;
   role: string;
   media: string;
   created: string;

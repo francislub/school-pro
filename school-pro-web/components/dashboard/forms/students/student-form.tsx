@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import CountryDropdown from "@/components/FormInputs/country";
+import { Class } from "@/types/types";
 
 
 export type SelectOptionProps = {
@@ -30,6 +31,7 @@ export type SelectOptionProps = {
 type SingleStudentFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
+  classes: Class[]
 };
 
 export type StudentProps = {
@@ -41,6 +43,7 @@ export type StudentProps = {
 export default function SingleStudentForm({
   editingId,
   initialData,
+  classes
 }: SingleStudentFormProps) {
 
   //parents
@@ -56,38 +59,23 @@ export default function SingleStudentForm({
   ]
   const [selectedParent, setSelectedParent ] = useState<any>(null)
   //classes
-  const classes =[
-    {
-      label:"S.1",
-      value:"123456"
-    },
-    {
-      label:"S.2",
-      value:"1234445"
-    },
-  ]
-  const [selectedClass, setSelectedClass ] = useState<any>(null)
+  const classOptions =classes.map((item)=>{
+    return {
+      label:item.title,
+      value:item.id
+    }
+  })
+  const [selectedClass, setSelectedClass ] = useState<any>(classOptions[0])
+  const classId = selectedClass.value??""
+  const streams = classes.find((item)=>item.id===classId)?.streams||[]
 
     //sections/streams
-    const streams =[
-      {
-        label:"S.1A",
-        value:"123456"
-      },
-      {
-        label:"S.1B",
-        value:"1234445"
-      },
-      {
-        label:"S.2A",
-        value:"1234445"
-      },
-      {
-        label:"S.2B",
-        value:"1234445"
-      },
-    
-    ]
+    const streamsOptions =streams.map((item)=>{
+      return {
+        label:item.title,
+        value:item.id
+      }
+    })
     const [selectedStream, setSelectedStream ] = useState<any>(null)
 
     //Gender
@@ -210,7 +198,7 @@ export default function SingleStudentForm({
                   />
                                     <FormSelectInput
                     label="Class"
-                    options={classes}
+                    options={classOptions}
                     option={selectedClass}
                     setOption={setSelectedClass}
                     toolTipText="Add New Class"
@@ -218,7 +206,7 @@ export default function SingleStudentForm({
                   />
                   <FormSelectInput
                     label="Stream/Section"
-                    options={streams}
+                    options={streamsOptions}
                     option={selectedStream}
                     setOption={setSelectedStream}
                     toolTipText="Add New Stream"
