@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import CountryDropdown from "@/components/FormInputs/country";
-import { Class } from "@/types/types";
+import { Class, Parent } from "@/types/types";
 
 
 export type SelectOptionProps = {
@@ -32,31 +32,46 @@ type SingleStudentFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
   classes: Class[]
+  parents: Parent[]
 };
 
 export type StudentProps = {
   name:string;
+  firstName:string;
+  lastName:string;
   email:string,
+  parentId:string;
+  classId:string;
+  streamId:string;
   password:string,
   imageUrl:string,
+  phone:string;
+  state:string;
+  BCN:string;
+  religion:string;
+  gender:string;
+  nationality:string;
+  dob:string;
+  rollNo:string;
+  regNo:string;
+  admissionDate:string;
+  address:string;
+
 }
 export default function SingleStudentForm({
   editingId,
   initialData,
-  classes
+  classes,
+  parents,
 }: SingleStudentFormProps) {
 
   //parents
-  const parents =[
-    {
-      label:"Francis",
-      value:"123456"
-    },
-    {
-      label:"John Deo",
-      value:"1234445"
-    },
-  ]
+  const parentOptions = parents.map((parent)=>{
+    return {
+      label:`${parent.firstName} ${parent.lastName}`,
+      value:parent.id
+    }
+  });
   const [selectedParent, setSelectedParent ] = useState<any>(null)
   //classes
   const classOptions =classes.map((item)=>{
@@ -190,7 +205,7 @@ export default function SingleStudentForm({
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                 <FormSelectInput
                     label="Parent"
-                    options={parents}
+                    options={parentOptions}
                     option={selectedParent}
                     setOption={setSelectedParent}
                     toolTipText="Add New Parent"
@@ -295,6 +310,7 @@ export default function SingleStudentForm({
                     errors={errors}
                     label="Admission Date"
                     name="admissionDate"
+                    type="date"
                   />
                 </div>
 
@@ -303,7 +319,7 @@ export default function SingleStudentForm({
                     register={register}
                     errors={errors}
                     label="Address"
-                    name="Address"
+                    name="address"
                   />
                 </div>
                 </div>
