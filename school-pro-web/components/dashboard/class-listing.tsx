@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip"
 import ClassForm from "./forms/academics/class-form"
 import StreamForm from "./forms/academics/stream-form"
+import { Class } from "@/types/types"
 
 interface ClassItem{
     id: number
@@ -53,8 +54,8 @@ const sections: SectionsData = {
     { name: "5c", students: 42, classTeacher: "Ms. Emily"},
     ],
 };
-export default function ClassListing(){
-    const [selectedClass, setSelectedClass] = React.useState<number>(1);
+export default function ClassListing({classes}:{classes:Class[]}){
+    const [selectedClass, setSelectedClass] = React.useState<string>("");
     return (
         <div className="grid lg:grid-cols-[280px_1fr] h-[calc(100vh-2rem)] max-h-[calc(100vh-2rem)] gap-2 p-4 pt-2">
          <div className="flex flex-col gap-2">
@@ -78,7 +79,7 @@ export default function ClassListing(){
                     {classes.map((classItem) => (
                         <div
                         key={classItem.id}
-                        className={cn("flex flex-col w-full items-start gap-1 rounded-lg px-3 py-2 text-left text-sm transition-colors",
+                        className={cn("flex item-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors",
                             selectedClass === classItem.id
                             ? "bg-accent text-accent-foreground"
                             : "hover:bg-muted text-muted-foreground"
@@ -88,15 +89,15 @@ export default function ClassListing(){
                             onClick={() => setSelectedClass(classItem.id)}
                             className="flex flex-col items-start gap-1 text-left"
                             >
-                                <div className="flex w-full items-center justify-between">
-                                    <span className="font-medium"> {classItem.name}
+                                <div className="flex w-full items-center justify-between gap-2">
+                                    <span className="font-medium"> {classItem.title}
                                     </span>
-                                    <span className="text-xs"> {classItem.sections} sections
+                                    <span className="text-xs"> {classItem.streams.length} sections
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                 <Users  className="h-3 w-3"/>
-                                {classItem.totalStudents} students
+                                40 students
                                 </div>
                             </button>
                             <div className="flex items-center gap-1">
@@ -135,7 +136,7 @@ export default function ClassListing(){
          </div>
         {/* //  Main content */}
         <div className="flex flex-col gap-2 rounded-lg border bg-card">
-            <div className="flex items-center gap-2 px-4 py-2 border-b">
+            <div className="flex items-center justify-between gap-2 px-4 py-2 border-b">
                 <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon" className="h-8 w-8">
                 <ChevronLeft className="h-4 w-4"/>
@@ -143,19 +144,19 @@ export default function ClassListing(){
                </Button>
                <div>
                <h2 className="text-lg font-semibold">
-                {classes.find((c) => c.id === selectedClass)?.name}
+                {classes.find((c) => c.id === selectedClass)?.title}
                     </h2>
                     <div className="flex items-center gap-1 text-sm text-muted-foreground">
                         <span> Classes</span>
                         <span>/</span>
-                        <span>{classes.find((c) => c.id === selectedClass)?.name}</span>
+                        <span>{classes.find((c) => c.id === selectedClass)?.title}</span>
                     </div>
                </div>
                 </div>
                 <StreamForm />
             </div>
             {/* still going on */}
-        <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
          {sections[selectedClass]?.map((section) => (
             <Card key={section.name}>
                 <CardHeader className="pb-2">
@@ -172,7 +173,7 @@ export default function ClassListing(){
                 </CardContent>
             </Card>
          ))}
-        </div>
+        </div> */}
         </div>
      </div>
     );

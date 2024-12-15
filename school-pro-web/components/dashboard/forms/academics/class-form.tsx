@@ -1,4 +1,4 @@
-"use client"; // Ensure client-side rendering
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -15,13 +15,11 @@ import TextInput from "@/components/FormInputs/TextInput";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { createClass } from "@/actions/classes";
 import toast from "react-hot-toast";
-
-// Added 'title' to ClassProps
-export type ClassProps = {
-  name: string;
-  title: string; // <-- Added this property
-};
-
+import { ClassCreateProps } from "@/types/types";
+ 
+export type ClassProps={
+    title:string
+}
 export default function ClassForm({
   userId,
   initialContent,
@@ -38,48 +36,54 @@ export default function ClassForm({
     formState: { errors },
   } = useForm<ClassProps>({
     defaultValues: {
-      name: initialContent || "",
-      title: "", // <-- Initialize default value for 'title'
+      title: initialContent || "",
     },
   });
-
+ 
   const [loading, setLoading] = useState(false);
-
-  async function saveClass(data: ClassProps) {
-    // Add 'title' to the data object
+ 
+  async function saveClass(data: ClassCreateProps) {
+    // data.userId = userId;
     try {
       setLoading(true);
       if (editingId) {
-        // Logic for updating an existing class
-        // Example:
-        // await updateClassById(editingId, data);
+        // await updateFolderById(editingId, data);
         // setLoading(false);
         // toast.success("Updated Successfully!");
       } else {
-        const res = await createClass(data); // Pass 'title' with 'name'
+        const res = await createClass(data);
         setLoading(false);
         toast.success("Class Successfully Created!");
+        reset()
       }
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      console.log(error);
     }
   }
-
+ 
   return (
     <div>
       <div className="py-1">
-        <Dialog>
+      <Dialog>
           <DialogTrigger asChild>
             {editingId ? (
               <button title="Edit Folder" className="text-blue-600">
-                <Pencil className="w-4 h-4" />
+                <Pencil className="w-4 h-4 " />
               </button>
             ) : (
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Plus className="h-4 w-4" />
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Plus className="h-4 w-4"/>
                 <span className="sr-only">Add Class</span>
-              </Button>
+                </Button>
+                // <Tooltip>
+                //     <TooltipTrigger asChild>
+                     
+                //     </TooltipTrigger>
+                //     <TooltipContent>
+                //         <p>Add Class</p>
+                //     </TooltipContent>
+                // </Tooltip>
             )}
           </DialogTrigger>
 
@@ -88,6 +92,9 @@ export default function ClassForm({
               <DialogTitle>
                 {editingId ? "Edit Class" : "Add New Class"}
               </DialogTitle>
+              {/* <DialogDescription>
+                Please Write your Comment here, with respect
+              </DialogDescription> */}
             </DialogHeader>
             <form className="" onSubmit={handleSubmit(saveClass)}>
               <div className="">
@@ -96,17 +103,14 @@ export default function ClassForm({
                     <TextInput
                       register={register}
                       errors={errors}
-                      label="Class Name" // Updated label for clarity
-                      name="name"
-                      icon={Check}
-                    />
-                    <TextInput
-                      register={register}
-                      errors={errors}
-                      label="Class Title" // Added input for 'title'
+                      label=""
                       name="title"
                       icon={Check}
                     />
+                    {/* <IconInput
+                      onIconSelect={setSelectedIcon}
+                      selectedIcon={selectedIcon}
+                    /> */}
                   </div>
                 </div>
                 <div className="py-3">

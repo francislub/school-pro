@@ -1,8 +1,7 @@
 "use server"
 
 import axios from "axios"
-import { ContactProps } from "@/components/frontend/contact-us";
-import { Class, ClassCreateProps, Contact } from "@/types/types";
+import { Class, ClassCreateProps } from "@/types/types";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
