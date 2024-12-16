@@ -42,8 +42,11 @@ export type StudentProps = {
   lastName:string;
   email:string,
   parentId:string;
+  parentName?:string;
   classId:string;
+  classTitle?:string;
   streamId:string;
+  streamTitle?:string;
   password:string,
   imageUrl:string,
   phone:string;
@@ -89,10 +92,10 @@ export default function SingleStudentForm({
     const streamsOptions =streams.map((item)=>{
       return {
         label:item.title,
-        value:item.id
+        value:item.id 
       }
     })
-    const [selectedStream, setSelectedStream ] = useState<any>(streams[0])
+    const [selectedStream, setSelectedStream ] = useState<any>(null)
 
     //Gender
     const genders =[
@@ -148,8 +151,11 @@ export default function SingleStudentForm({
       data.imageUrl = imageUrl;
       data.name = '${data.firstName} ${data.lastName}';
       data.parentId = selectedParent.value;
+      data.parentName = selectedParent.label;
       data.classId = selectedClass.value;
+      data.classTitle = selectedClass.label;
       data.streamId = selectedStream.value;
+      data.streamTitle = selectedStream.label;
       data.gender = selectedGender.value;
       data.religion = selectedReligion.value;
       

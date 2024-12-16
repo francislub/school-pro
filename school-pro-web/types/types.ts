@@ -72,6 +72,9 @@ export type Student = {
   lastName:string;
   email:string;
   parentId:string;
+  parentName?:string;
+  classTitle?:string;
+  streamTitle?:string;
   classId:string;
   streamId:string;
   password:string,

@@ -8,14 +8,18 @@ import {
 } from "@radix-ui/react-dialog";
 import {
   Badge,
+  Book,
   Briefcase,
   Calendar,
   Clock,
   Edit,
   Flag,
+  Hash,
   Mail,
   MapPin,
-  Phone
+  Phone,
+  School,
+  User
 } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -78,12 +82,12 @@ export function StudentInfoModal({ student }: StudentInfoModalProps) {
                         alt={'${parent.firstName} ${parent.lastName}'}
                     />
                     <AvatarFallback>
-                        {student.firstName[0]} ${student.lastName[0]}
+                        {student.firstName[0]} {student.lastName[0]}
                     </AvatarFallback>
                     </Avatar>
                     <div>
                         <h2 className="text-2xl font-bold"> {student.firstName} {student.lastName}</h2>
-                        <p className="text-muted-foreground">{student.phone}</p>
+                        <p className="text-muted-foreground">Student ID: {student.id}</p>
                     </div>
                  </CardTitle>
              </CardHeader>
@@ -92,27 +96,55 @@ export function StudentInfoModal({ student }: StudentInfoModalProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <InfoItem icon={<Mail className="w-4 h-4" />} 
                     label="Email" value={student.email} />
+
                     <InfoItem icon={<Phone className="w-4 h-4" />} 
                     label="Phone" value={student.phone} />
-                    {/* <InfoItem icon={<Phone className="w-4 h-4" />} 
-                    label="WhatsApp" value={student.whatsapNo} /> */}
 
-                   <InfoItem icon={<FaGenderless className="w-4 h-4" />} 
+                    <InfoItem icon={<Phone className="w-4 h-4" />} 
+                    label="Phone" value={student.phone} />
+
+                   <InfoItem icon={<User className="w-4 h-4" />} 
                     label="Gender" value={student.gender} />
+
                     <InfoItem icon={<Calendar className="w-4 h-4" />} 
                     label="Date Of Birth" value={format(new Date(student.dob),'PPP')} />
-                    {/* <InfoItem icon={<Flag className="w-4 h-4" />} 
-                    label="National ID/Passport" value={student.NIN} /> */}
-                    {/* <InfoItem icon={<Mail className="w-4 h-4" />} 
-                    label="Preferred Contact" value={student.contactMethod} /> */}
-                    {/* <InfoItem icon={<Briefcase className="w-4 h-4" />} 
-                    label="Occupation" value={student.occupation} /> */}
+
+                    <InfoItem icon={<Flag className="w-4 h-4" />} 
+                    label="Nationality" value={student.nationality} />
+                    <InfoItem icon={<User className="w-4 h-4" />} 
+                    label="Religion" value={student.religion} />
+                    <InfoItem icon={<MapPin className="w-4 h-4" />} 
+                    label="State" value={student.state} />
+
+                    <InfoItem icon={<Hash className="w-4 h-4" />} 
+                    label="Birth Certificate Number" value={student.BCN} />
+
+                    <InfoItem icon={<School className="w-4 h-4" />} 
+                    label="Class " value={student?.classTitle||student.classId} />
+
+                    <InfoItem icon={<Book className="w-4 h-4" />} 
+                    label="Stream " value={student?.streamTitle||student.streamId } />
+
+                    <InfoItem icon={<Hash className="w-4 h-4" />} 
+                    label="Roll No" value={student.rollNo} />
+
+                    <InfoItem icon={<Hash className="w-4 h-4" />} 
+                    label="Reg No" value={student.regNo} />
+
+                    <InfoItem icon={<Calendar className="w-4 h-4" />} 
+                    label="Admission Date" value={format(new Date(student.admissionDate),'PPP')} />
+
+                    <InfoItem icon={<User className="w-4 h-4" />} 
+                    label="Parent Name" value={student?.parentName||student.parentId} />
+
                 </div>
                 <InfoItem icon={<MapPin className="w-4 h-4" />} 
-                    label="State" value={student.state} />
+                label="Address" value={student.address} /
+                >
                     <div className="grid grid-cols md:grid-cols-2 gap-4 text-sm text-muted-foreground">
                     <InfoItem icon={<Clock className="w-4 h-4" />} 
                     label="CreatedAt" value={format(new Date(student.createdAt),'PPP')} />
+                    
                     <InfoItem icon={<Clock className="w-4 h-4" />} 
                     label="Updated At" value={format(new Date(student.updatedAt),'ppp')} />
                     </div>
