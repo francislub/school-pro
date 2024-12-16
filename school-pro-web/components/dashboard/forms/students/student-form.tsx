@@ -22,6 +22,7 @@ import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import CountryDropdown from "@/components/FormInputs/country";
 import { Class, Parent } from "@/types/types";
+import { createStudents } from "@/actions/students";
 
 
 export type SelectOptionProps = {
@@ -91,7 +92,7 @@ export default function SingleStudentForm({
         value:item.id
       }
     })
-    const [selectedStream, setSelectedStream ] = useState<any>(null)
+    const [selectedStream, setSelectedStream ] = useState<any>(streams[0])
 
     //Gender
     const genders =[
@@ -105,7 +106,7 @@ export default function SingleStudentForm({
       },
     
     ]
-    const [selectedGender, setSelectedGender ] = useState<any>(null)
+    const [selectedGender, setSelectedGender ] = useState<any>(genders[0])
 
     //Religion
     const religions =[
@@ -123,7 +124,7 @@ export default function SingleStudentForm({
       },
     
     ]
-    const [selectedReligion, setSelectedReligion ] = useState<any>(null)
+    const [selectedReligion, setSelectedReligion ] = useState<any>(religions[0])
 
   const {
     register,
@@ -145,7 +146,13 @@ export default function SingleStudentForm({
     try {
       setLoading(true);
       data.imageUrl = imageUrl;
-
+      data.name = '${data.firstName} ${data.lastName}';
+      data.parentId = selectedParent.value;
+      data.classId = selectedClass.value;
+      data.streamId = selectedStream.value;
+      data.gender = selectedGender.value;
+      data.religion = selectedReligion.value;
+      
       if (editingId) {
         // await updateCategoryById(editingId, data);
         // setLoading(false);
@@ -154,12 +161,12 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        // await createCategory(data);
-        // setLoading(false);
-        // toast.success("Successfully Created!");
-        // reset();
+        const res = await createStudents(data);
+        setLoading(false);
+        toast.success("Successfully Created!");
+        reset();
         // setImageUrl("/placeholder.svg");
-        // router.push("/dashboard/categories");
+        router.push("/dashboard/students");
       }
     } catch (error) {
       setLoading(false);

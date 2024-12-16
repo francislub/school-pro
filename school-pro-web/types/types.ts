@@ -63,4 +63,31 @@ export type Parent = {
   imageUrl:string;
   createdAt: string;
   updatedAt: string;
-}
+};
+
+export type Student = {
+  id:string;
+  name:string;
+  firstName:string;
+  lastName:string;
+  email:string;
+  parentId:string;
+  classId:string;
+  streamId:string;
+  password:string,
+  imageUrl:string,
+  phone:string;
+  state:string;
+  BCN:string;
+  religion:string;
+  gender:string;
+  nationality:string;
+  dob:string;
+  rollNo:string;
+  regNo:string;
+  admissionDate:string;
+  address:string;
+  createdAt: string;
+  updatedAt: string;
+
+};
