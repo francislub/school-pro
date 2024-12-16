@@ -87,7 +87,7 @@ export function StudentInfoModal({ student }: StudentInfoModalProps) {
                     </Avatar>
                     <div>
                         <h2 className="text-2xl font-bold"> {student.firstName} {student.lastName}</h2>
-                        <p className="text-muted-foreground">Student ID: {student.id}</p>
+                        <p className="text-xs text-muted-foreground">Student ID: {student.id}</p>
                     </div>
                  </CardTitle>
              </CardHeader>
@@ -144,7 +144,7 @@ export function StudentInfoModal({ student }: StudentInfoModalProps) {
                     <div className="grid grid-cols md:grid-cols-2 gap-4 text-sm text-muted-foreground">
                     <InfoItem icon={<Clock className="w-4 h-4" />} 
                     label="CreatedAt" value={format(new Date(student.createdAt),'PPP')} />
-                    
+
                     <InfoItem icon={<Clock className="w-4 h-4" />} 
                     label="Updated At" value={format(new Date(student.updatedAt),'ppp')} />
                     </div>

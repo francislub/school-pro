@@ -29,7 +29,22 @@ export type Class ={
   id: string;
   title: string;
   slug: string;
-  streams: Stream[];
+  streams: StreamWithCount[];
+  _count:{
+    students: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type StreamWithCount ={
+  id: string;
+  title: string;
+  slug: string;
+  classId: string;
+  _count:{
+    students: number;
+  };
   createdAt: string;
   updatedAt: string;
 };
