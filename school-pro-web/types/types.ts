@@ -21,7 +21,7 @@ export type ClassCreateProps ={
 
 export type DepartmentCreateProps ={
   name: string;
-  // slug: string;
+  slug: string;
 };
 
 export type StreamCreateProps ={
@@ -38,6 +38,21 @@ export type Class ={
   _count:{
     students: number;
   };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Department ={
+  id: string;
+  name: string;
+  slug: string;
+  hodId?: string;
+  hodName?: string;
+  hodStartDate?: string;
+  budget?: number;
+  budgetYear?: string;
+  teachers: StreamWithCount[];
+  subjects: StreamWithCount[];
   createdAt: string;
   updatedAt: string;
 };

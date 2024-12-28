@@ -3,6 +3,7 @@
 import axios from "axios"
 import { ParentProps } from "@/components/dashboard/forms/users/parent-form";
 import { Parent } from "@/types/types";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -18,6 +19,7 @@ export async function createParents(data:ParentProps){
    try {
    
     const response = await api.post("/parents",data);
+    revalidatePath("/dashboard/users/parents");
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {

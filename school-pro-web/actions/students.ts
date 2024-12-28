@@ -3,6 +3,7 @@
 import axios from "axios"
 import { Student } from "@/types/types";
 import { StudentProps } from "@/components/dashboard/forms/students/student-form";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -18,6 +19,7 @@ export async function createStudents(data:StudentProps){
    try {
    
     const response = await api.post("/students", data);
+    revalidatePath("/dashboard/students");
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {

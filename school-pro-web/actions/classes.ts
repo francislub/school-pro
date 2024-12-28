@@ -3,6 +3,7 @@
 import axios from "axios"
 import { Class, ClassCreateProps, StreamCreateProps } from "@/types/types";
 import { Stream } from "stream";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -18,6 +19,7 @@ export async function createClass(data:ClassCreateProps){
    try {
    
     const response = await api.post("/classes",data);
+    revalidatePath("/dashboard/academics/classes");
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -32,6 +34,7 @@ export async function createStream(data:StreamCreateProps){
    try {
    
     const response = await api.post("/streams",data);
+    revalidatePath("/dashboard/academics/classes");
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {

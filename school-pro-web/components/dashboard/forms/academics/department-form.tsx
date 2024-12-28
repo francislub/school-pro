@@ -16,6 +16,7 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { createClass } from "@/actions/classes";
 import toast from "react-hot-toast";
 import { ClassCreateProps, DepartmentCreateProps } from "@/types/types";
+import { createDepartment } from "@/actions/departments";
  
 export type DepartmentProps={
     title:string
@@ -51,7 +52,7 @@ export default function DepartmentForm({
         // setLoading(false);
         // toast.success("Updated Successfully!");
       } else {
-        // const res = await createDepartment(data);
+        const res = await createDepartment(data);
         setLoading(false);
         toast.success("Department Successfully Created!");
         reset()

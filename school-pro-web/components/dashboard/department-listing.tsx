@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import ClassForm from "./forms/academics/class-form"
 import DepartmentForm from "./forms/academics/department-form"
+import { Department } from "@/types/types"
 
 // This is sample data - replace with your actual data fetching logic
 const departments = [
@@ -36,7 +37,7 @@ const departments = [
   // Add more sample departments...
 ]
 
-export default function DepartmentListing() {
+export default function DepartmentListing({departments}:{departments:Department[]}) {
     const [selectedDept, setSelectedDept] = useState(departments[0])
     const [isMobileOpen, setIsMobileOpen] = useState(false)
 
@@ -62,7 +63,7 @@ export default function DepartmentListing() {
                         onClick={() => setSelectedDept(dept)}
                         >
                             <span className="font-medium">
-                              {dept.name}
+                              {dept.name} Department
                             </span>
 
                             <div className="flex gap-2">
@@ -98,7 +99,7 @@ export default function DepartmentListing() {
                             }}
                             >
                             <span className="font-medium">
-                              {dept.name}
+                              {dept.name} Department
                             </span>
 
                                 <div className="flex gap-2">
@@ -131,7 +132,7 @@ export default function DepartmentListing() {
                           >
                             <Users className="h-4 w-4"/>
                           </Button>
-                          <h1 className="text-2xl font-bold">{selectedDept.name}</h1>
+                          <h1 className="text-2xl font-bold">{selectedDept.name} Department</h1>
                         </div>
                     </div>
 
@@ -181,9 +182,13 @@ export default function DepartmentListing() {
 
                             <CardContent>
                                 <div className="text-2xl font-bold">
-                                    ${selectedDept.budget?.toLocaleString()}
+                                    {/* ${selectedDept.budget?.toLocaleString()} */}
+                                    $ 75000
                                 </div>
-                                <p className="text-xs text-muted-foreground">FY {selectedDept.budgetYear}</p>
+                                <p className="text-xs text-muted-foreground">
+                                    {/* FY {selectedDept.budgetYear} */}
+                                    FY 2023 - 2024
+                                </p>
                             </CardContent>
                         </Card>
                        </div>
