@@ -68,7 +68,7 @@ export default function ClassListing({classes}:{classes:Class[]}){
              <h2 className="text-xl font-semibold">Classes</h2>
             </div>
             <ClassForm />
-            </div>
+         </div>
             <div className="px-4 py-2">
                 <Input 
                 placeholder="Search Classes...."
