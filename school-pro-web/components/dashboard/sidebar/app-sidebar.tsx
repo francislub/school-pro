@@ -106,6 +106,10 @@ export default function AppSidebar() {
           url: "/dashboard/users/parents",
         },
         {
+          title: "Teachers",
+          url: "/dashboard/users/teachers",
+        },
+        {
           title: "Secretary",
           url: "/dashboard/users/secretary",
         },

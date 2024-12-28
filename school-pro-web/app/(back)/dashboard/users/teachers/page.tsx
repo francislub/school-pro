@@ -5,18 +5,18 @@ import TableHeader from "@/components/dashboard/Tables/TableHeader";
 import { getAllParents } from "@/actions/parents";
 
 export default async function page() {
-  const parents = (await getAllParents()) || [];
+  const teachers = (await getAllParents()) || [];
   return (
     <div className="p-8">
       <TableHeader
-        title="Parents"
-        linkTitle="Add Parent"
-        href="/dashboard/users/parents/new"
-        data={parents}
-        model="parent"
+        title="Teachers"
+        linkTitle="Add Teacher"
+        href="/dashboard/users/teachers/new"
+        data={teachers}
+        model="teacher"
       />
       <div className="py-8">
-        <DataTable data={parents} columns={columns} />
+        <DataTable data={teachers} columns={columns} />
       </div>
     </div>
   );
