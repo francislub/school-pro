@@ -129,7 +129,15 @@ export default function AppSidebar() {
       icon: GraduationCap,
       items: [
         {
-          title: "Classes and Streams",
+          title: "Subjects",
+          url: "/dashboard/academics/subjects",
+        },
+        {
+          title: "Departments",
+          url: "/dashboard/academics/departments",
+        },
+        {
+          title: "Classes and Streams", 
           url: "/dashboard/academics/classes",
         },
         {
