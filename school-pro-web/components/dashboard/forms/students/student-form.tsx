@@ -1,14 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,9 +11,11 @@ import TextArea from "@/components/FormInputs/TextAreaInput";
 import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
-import CountryDropdown from "@/components/FormInputs/country";
 import { Class, Parent } from "@/types/types";
 import { createStudents } from "@/actions/students";
+import RadioInput from "@/components/FormInputs/RadioInput";
+import { generateRegistrationNumber } from "@/lib/generateRegNo";
+import { generateRollNumber } from "@/lib/generateRoll";
 
 
 export type SelectOptionProps = {
@@ -34,21 +27,23 @@ type SingleStudentFormProps = {
   initialData?: any | undefined | null;
   classes: Class[]
   parents: Parent[]
+  nextSeq:number
 };
 
 export type StudentProps = {
   name:string;
   firstName:string;
   lastName:string;
-  email:string,
+  email:string;
   parentId:string;
+  studentType:string;
   parentName?:string;
   classId:string;
   classTitle?:string;
   streamId:string;
   streamTitle?:string;
-  password:string,
-  imageUrl:string,
+  password:string;
+  imageUrl:string;
   phone:string;
   state:string;
   BCN:string;
@@ -67,6 +62,7 @@ export default function SingleStudentForm({
   initialData,
   classes,
   parents,
+  nextSeq,
 }: SingleStudentFormProps) {
 
   //parents
@@ -83,7 +79,7 @@ export default function SingleStudentForm({
       label:item.title,
       value:item.id
     }
-  })
+  });
   const [selectedClass, setSelectedClass ] = useState<any>(classOptions[0])
   const classId = selectedClass.value??""
   const streams = classes.find((item)=>item.id===classId)?.streams||[]
@@ -144,12 +140,22 @@ export default function SingleStudentForm({
   const [loading, setLoading] = useState(false);
   const initialImage = initialData?.imageUrl || "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
+  const studentTypes =[
+    {
+      label:"Private Student",
+      id:"PS"
+    },
+    {
+      label:"Sponsored Student",
+      id:"SS"
+    },
+  ]
 
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
       data.imageUrl = imageUrl;
-      data.name = '${data.firstName} ${data.lastName}';
+      data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;
       data.parentName = selectedParent.label;
       data.classId = selectedClass.value;
@@ -167,9 +173,15 @@ export default function SingleStudentForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
+        const rollNo = generateRollNumber()
+        const studentType = data.studentType as "PS"| "SS"
+        const regNo = generateRegistrationNumber("BU",studentType, nextSeq);
+        data.regNo = regNo
+        data.rollNo = rollNo
+        console.log(data)
         const res = await createStudents(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Student Successfully Created!");
         reset();
         // setImageUrl("/placeholder.svg");
         router.push("/dashboard/students");
@@ -304,27 +316,37 @@ export default function SingleStudentForm({
                   <TextInput
                     register={register}
                     errors={errors}
-                    label="Roll No"
-                    name="rollNo"
+                    label="Admission Date"
+                    name="admissionDate"
+                    type="date"
                   />
                 </div>
                 <div className="grid md:grid-cols-2 gap-3">
                 <div className="">
                 <div className="grid gap-3">
                   
-                  <TextInput
+                  {/* <TextInput
                     register={register}
                     errors={errors}
                     label="Registration No"
                     name="regNo"
+                  /> */}
+
+                  <RadioInput 
+                   radioOptions={studentTypes}
+                   register={register}
+                   label="Student Type"
+                   name="studentType"
+                   errors={errors}
+                   defauitValue="PS"
                   />
-                  <TextInput
+                  {/* <TextInput
                     register={register}
                     errors={errors}
                     label="Admission Date"
                     name="admissionDate"
                     type="date"
-                  />
+                  /> */}
                 </div>
 
                 <div className="grid gap-3">

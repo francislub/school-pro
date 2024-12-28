@@ -11,6 +11,7 @@ type RadioInputProps = {
   label: string;
   name: string;
   errors: any;
+  defauitValue?: string;
 };
 export default function RadioInput({
   radioOptions,
@@ -18,7 +19,9 @@ export default function RadioInput({
   label,
   name,
   errors,
+  defauitValue,
 }: RadioInputProps) {
+  const defaultSelected = defauitValue || (radioOptions[0]?.id??'');
   return (
     <div className="grid gap-3 pt-4">
       <h3 className=" font-semibold text-gray-900 dark:text-white">{label}</h3>
@@ -31,11 +34,12 @@ export default function RadioInput({
             >
               <div className="flex items-center ps-3">
                 <input
-                  {...register(`${name}`, { required: true })}
+                  {...register(`${name}`, { required: true, value: defaultSelected })}
                   name={`${name}`}
                   id={item.id}
                   type="radio"
                   value={item.id}
+                  defaultChecked={item.id === defaultSelected}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                 />
                 <label

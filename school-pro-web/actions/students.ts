@@ -17,14 +17,14 @@ export async function createStudents(data:StudentProps){
     // const endpoint = '${BASE_API_URL}/v1/parents'
    try {
    
-    const response = await api.post("/students",data);
+    const response = await api.post("/students", data);
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message || "Failed to create Student";
         throw new Error(message);
     }
-    throw error;
+    throw new Error("An unknown error occurred: " + (error as Error).message);
    }
 }
 
@@ -40,6 +40,15 @@ export async function getAllStudents() {
         const response = await api.get("/students");
         const students = response.data
         return students as Student[];
+    } catch (error) {
+        console.log(error)
+    }
+}
+export async function getAllStudentNextSequence() {
+    try {
+        const response = await api.get("/students/seq");
+        const nextSeq = response.data
+        return nextSeq as number;
     } catch (error) {
         console.log(error)
     }

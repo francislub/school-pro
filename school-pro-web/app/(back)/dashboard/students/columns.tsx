@@ -10,7 +10,7 @@ import { StudentInfoModal } from "@/components/dashboard/models/student-info-mod
 export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "student",
-    header: "View",
+    header: "Name",
     cell: ({ row }) => {
       const student = row.original;
       return (
@@ -26,12 +26,12 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     accessorKey: "email-phone",
-    header: "View",
+    header: "Details",
     cell: ({ row }) => {
       const student = row.original;
       return (
         <div className="">
-          <h2 className="font-medium">{student.email.toLocaleLowerCase()}</h2>
+          <h2 className="font-medium">{student.regNo.toLocaleLowerCase()}</h2>
           <p className="text-xmstext-muted-foreground">{student.phone}</p>
         </div>
       )
@@ -39,7 +39,7 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     accessorKey: "class-stream",
-    header: "View",
+    header: "Class",
     cell: ({ row }) => {
       const student = row.original;
       return (

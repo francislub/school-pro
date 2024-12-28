@@ -11,7 +11,7 @@ export default async function page() {
       <TableHeader
         title="Students"
         linkTitle="Add Student"
-        href="/dashboard/users/students/new"
+        href="/dashboard/students/new"
         data={students}
         model="student"
       />
