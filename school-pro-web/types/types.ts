@@ -71,6 +71,12 @@ export type DepartmentBrief ={
   name: string;
   
 };
+export type ClassBrief ={
+  id: string;
+  title: string;
+  
+};
+
 export type SubjectBrief ={
   id: string;
   name: string;
@@ -188,4 +194,64 @@ export interface Subject {
   hasTheory: boolean;
   hasPractical: boolean;
   labRequired: boolean;
+}
+
+export type TeacherCreateProps = {
+  title:string;
+  employeeId:string;
+  firstName:string,
+  lastName:string,
+  phone:string,
+  email:string,
+  whatsappNo:string,
+  nationality:string,
+  NIN:string,
+  gender:string,
+  dateOfBirth:string,
+  contactMethod:string,
+  password:string,
+  dateOfJoining:string,
+  designation:string,
+  departmentId:string,
+  departmentName:string,
+  qualification:string,
+  mainSubject:string,
+  mainSubjectId:string,
+  subjects:string[],
+  classIds:string[],
+  classes:string[],
+  experience:number,
+  address:string,
+  imageUrl:string,
+}
+export type Teacher = {
+  id:string;
+  title:string;
+  employeeId:string;
+  firstName:string,
+  lastName:string,
+  phone:string,
+  email:string,
+  whatsappNo:string,
+  nationality:string,
+  NIN:string,
+  gender:string,
+  dateOfBirth:string,
+  contactMethod:string,
+  password:string,
+  dateOfJoining:string,
+  designation:string,
+  departmentId:string,
+  departmentName:string,
+  qualification:string,
+  mainSubject:string,
+  mainSubjectId:string,
+  subjects:string[],
+  classIds:string[],
+  classes:string[],
+  experience:number,
+  address:string,
+  imageUrl:string,
+  createdAt:string,
+  updatedAt:string,
 }

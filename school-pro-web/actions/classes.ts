@@ -1,7 +1,7 @@
 "use server"
 
 import axios from "axios"
-import { Class, ClassCreateProps, StreamCreateProps } from "@/types/types";
+import { Class, ClassBrief, ClassCreateProps, StreamCreateProps } from "@/types/types";
 import { Stream } from "stream";
 import { revalidatePath } from "next/cache";
 
@@ -61,6 +61,18 @@ export async function getAllClasses() {
         console.log(error)
     }
 }
+
+export async function getBriefClasses() {
+    try {
+        const response = await api.get("/classes/brief");
+        console.log("Response", response)
+        const classes = response.data
+        return classes as ClassBrief[];
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export async function getAllStreams() {
     try {
         const response = await api.get("/streams");

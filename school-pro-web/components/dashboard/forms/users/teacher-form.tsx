@@ -1,14 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,62 +11,30 @@ import TextArea from "@/components/FormInputs/TextAreaInput";
 import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
-import CountryDropdown from "@/components/FormInputs/country";
-import { createParents } from "@/actions/parents";
+import { TeacherCreateProps } from "@/types/types";
+import { createTeacher } from "@/actions/teachers";
+import FormMultipleSelectInput from "@/components/FormInputs/FormMultipleSelectInput";
 
 
-export type SelectOptionProps = {
-  label: string;
-  value: string;
-};
-type SingleStudentFormProps = {
+type TeacherFormProps = {
   editingId?: string | undefined;
   initialData?: any | undefined | null;
+  classes: DataOption[];
+  departments: DataOption[];
+  subjects: DataOption[];
 };
 
-export type ParentProps = {
-  title:string;
-  firstName:string,
-  lastName:string,
-  relationship:string,
-  email:string,
-  NIN:string,
-  gender:string,
-  dob:string,
-  phone:string,
-  nationality:string,
-  whatsapNo:string,
-  contactMethod:string,
-  occupation:string,
-  address:string,
-  password:string,
-  imageUrl:string,
+export type DataOption ={
+  label:string,
+  value:string
 }
 export default function TeacherForm({
   editingId,
   initialData,
-}: SingleStudentFormProps) {
-
-  //relationship
-  const relationships =[
-    {
-      label:"Mother",
-      value:"Mother"
-    },
-    {
-      label:"Father",
-      value:"Father"
-    },
-    {
-      label:"Guardian",
-      value:"Guardian"
-    },
-    {
-      label:"Other",
-      value:"Other"
-    },
-  ]
-  const [selectedRelationship, setSelectedRelationship ] = useState<any>(relationships[1])
+  classes,
+  departments,
+  subjects
+}: TeacherFormProps) {
   //titles
   const titles =[
     {
@@ -112,43 +71,16 @@ export default function TeacherForm({
       value:"whatsap"
     },
   ]
-  const [selectedContactMethod, setSelectedContactMethod ] = useState<any>(contactMethod[0])
+  const [selectedContactMethod, setSelectedContactMethod ] = useState<any>(contactMethod[0]);
   // depertments
-  const departments =[
-    {
-      label:"Science",
-      value:"1234"
-    },
-    {
-      label:"Chemistry",
-      value:"1423"
-    },
-  ]
-  const [selectedDepertment, setSelectedDepartment ] = useState<any>(departments[0])
+  const [selectedDepertment, setSelectedDepartment ] = useState<any>(departments[0]);
 
-  const subjects =[
-    {
-      label:"Science",
-      value:"1234"
-    },
-    {
-      label:"Chemistry",
-      value:"1423"
-    },
-  ]
-  const [selectedSubject, setSelectedSubject ] = useState<any>(subjects[0])
+  const [mainSubject, setMainSubject ] = useState<any>([subjects[0]]);
 
-  const classes =[
-    {
-      label:"S.1",
-      value:"12"
-    },
-    {
-      label:"S.2",
-      value:"1423"
-    },
-  ]
-  const [selectedClass, setSelectedClass ] = useState<any>(classes[0])
+  const [selectedSubjects, setSelectedSubjects ] = useState<any>([subjects[0]]);
+
+  const [selectedClasses, setSelectedClasses ] = useState<any>([classes[0]]);
+  
 
   const mainSubjects =[
     {
@@ -197,7 +129,7 @@ export default function TeacherForm({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ParentProps>({
+  } = useForm<TeacherCreateProps>({
     defaultValues: {
       firstName: "",
     },
@@ -208,14 +140,22 @@ export default function TeacherForm({
   const initialImage = initialData?.imageUrl || "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: ParentProps) {
+  async function saveStudent(data: TeacherCreateProps) {
     try {
       setLoading(true);
       data.imageUrl = imageUrl;
       data.title = selectedTitle.value;
-      data.relationship = selectedRelationship.value;
       data.gender = selectedGender.value;
       data.contactMethod = selectedContactMethod.value;
+      data.departmentId = selectedDepertment.value;
+      data.departmentName = selectedDepertment.label;
+      data.qualification = selectedQualification.label;
+      data.mainSubject = mainSubject.label;
+      data.mainSubjectId = mainSubject.value;
+      data.subjects = selectedSubjects.map((item: any) => item.label);
+      data.classIds = selectedClasses.map((item: any) => item.value);
+      data.classes = selectedClasses.map((item: any) => item.label);
+      data.experience = Number(data.experience)
 
       if (editingId) {
         // await updateCategoryById(editingId, data);
@@ -225,12 +165,12 @@ export default function TeacherForm({
         // router.push("/dashboard/categories");
         // setImageUrl("/placeholder.svg");
       } else {
-        const res = await createParents(data);
+        const res = await createTeacher(data);
         setLoading(false);
-        toast.success("Successfully Created!");
+        toast.success("Teacher Successfully Created!");
         reset();
         // setImageUrl("/placeholder.svg");
-        router.push("/dashboard/users/parents");
+        router.push("/dashboard/users/teachers");
       }
     } catch (error) {
       setLoading(false);
@@ -293,7 +233,7 @@ export default function TeacherForm({
                     errors={errors}
                     type="tel"
                     label="Whatsap No"
-                    name="whatsapNo"
+                    name="whatsappNo"
                   />
                 </div>
 
@@ -387,11 +327,11 @@ export default function TeacherForm({
                     toolTipText="Add New Subject"
                   />
                   {/* multi select */}
-                  <FormSelectInput
+                  <FormMultipleSelectInput
                     label="Subjects"
                     options={subjects}
-                    option={selectedSubject}
-                    setOption={setSelectedSubject}
+                    option={selectedSubjects}
+                    setOption={setSelectedSubjects}
                     href="/dashboard/academics/subjects/new"
                     toolTipText="Add New Subject"
                   />
@@ -403,15 +343,14 @@ export default function TeacherForm({
                 <div className="space-y-3">
 
                   {/* multi select */}
-                  <FormSelectInput
+                  <FormMultipleSelectInput
                     label="Classes"
                     options={classes}
-                    option={selectedClass}
-                    setOption={setSelectedClass}
+                    option={selectedClasses}
+                    setOption={setSelectedClasses}
                     href="/dashboard/academics/classes"
                     toolTipText="Add New Class"
                   />
-
                 <div className="grid gap-3">
                   
                   <TextInput
