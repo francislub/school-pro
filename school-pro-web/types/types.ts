@@ -23,6 +23,15 @@ export type DepartmentCreateProps ={
   name: string;
   slug: string;
 };
+export type SubjectCreateProps ={
+  name: string;
+  code: string;
+  shortName: string;
+  category: string;
+  type: string;
+  departmentId: string;
+  departmentName: string;
+};
 
 export type StreamCreateProps ={
   title: string;
@@ -55,6 +64,17 @@ export type Department ={
   subjects: StreamWithCount[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type DepartmentBrief ={
+  id: string;
+  name: string;
+  
+};
+export type SubjectBrief ={
+  id: string;
+  name: string;
+  
 };
 
 export type StreamWithCount ={
@@ -129,3 +149,43 @@ export type Student = {
   updatedAt: string;
 
 };
+
+export enum SubjectCategory {
+  CORE = 'CORE',
+  ELECTIVE = 'ELECTIVE',
+  ADDITIONAL = 'ADDITIONAL',
+  VOCATIONAL = 'VOCATIONAL',
+  LANGUAGE = 'LANGUAGE',
+  EXTRA_CURRICULAR = 'EXTRA_CURRICULAR'
+}
+
+export enum SubjectType {
+  THEORY = 'THEORY',
+  PRACTICAL = 'PRACTICAL',
+  BOTH = 'BOTH'
+}
+
+export interface Subject {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+
+  name: string;
+  slug: string;
+  code: string;
+  shortName: string;
+
+  category: string;
+  type: string;
+  passingMarks?: string;
+  totalMarks?: string;
+  departmentId: string;
+  departmentName: string;
+  department: string;
+
+  isActive: boolean;
+  isOptional: boolean;
+  hasTheory: boolean;
+  hasPractical: boolean;
+  labRequired: boolean;
+}
