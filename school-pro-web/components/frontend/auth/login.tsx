@@ -9,11 +9,18 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import Logo from "@/components/logo";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import { LogIn, Mail } from "lucide-react";
-export type RegisterInputProps = {
-  fullName: string;
+import { loginUser } from "@/actions/auth";
+import { useUserSession } from "@/store/auth";
+import { User } from "@/types/types";
+// export type RegisterInputProps = {
+//   fullName: string;
+//   email: string;
+//   password: string;
+//   phone: string;
+// };
+export type LoginInputProps = {
   email: string;
   password: string;
-  phone: string;
 };
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,10 +29,28 @@ export default function Login() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<RegisterInputProps>();
+  } = useForm<LoginInputProps>();
+  const {setUser} = useUserSession();
   const router = useRouter();
-  async function onSubmit(data: RegisterInputProps) {
-    console.log(data);
+  async function onSubmit(data: LoginInputProps) {
+    try {
+      setIsLoading(true)
+      const sessionData = await loginUser(data)
+      setUser(sessionData?.user as User)
+      const role = sessionData?.user.role
+      setIsLoading(false)
+
+      if (role === "SUPER_ADMIN") {
+        router.push("/school-onboarding");
+      } else {
+        router.push("/dashboard")
+      }
+      // console.log(res)
+      
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+    }
   }
   return (
     <div className="w-full lg:grid h-screen lg:min-h-[600px] lg:grid-cols-2 relative ">

@@ -257,3 +257,16 @@ export type Teacher = {
   createdAt:string,
   updatedAt:string,
 }
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'STIDENT' | 'PARENT';
+  createdAt: string;
+  updatedAt: string;
+  image?: string | null;
+  phone?: string  | null;
+  schoolId?: string | null;
+  schoolName?: string | null;
+}

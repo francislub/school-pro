@@ -3,6 +3,7 @@
 import axios from "axios"
 import { ContactProps } from "@/components/frontend/contact-us";
 import { Contact } from "@/types/types";
+import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -18,6 +19,7 @@ export async function createContact(data:ContactProps){
    try {
    
     const response = await api.post("/contacts",data);
+    revalidatePath("/dashboard/admin/contacts");
     return response.data;
    } catch (error) {
     if (axios.isAxiosError(error)) {
