@@ -4,13 +4,12 @@ import DateColumn from "@/components/DataTableColumns/DateColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/DataTableColumns/ActionColumn";
 import { Parent } from "@/types/types";
-import ContactInfoModal from "@/components/DataTableColumns/ContactCard";
 import { ParentInfoModal } from "@/components/dashboard/models/parent-info-modal";
 import Image from "next/image";
 export const columns: ColumnDef<Parent>[] = [
   {
     accessorKey: "user",
-    header: "View",
+    header: "Name",
     cell: ({ row }) => {
       const parent = row.original;
       return (
@@ -18,7 +17,7 @@ export const columns: ColumnDef<Parent>[] = [
           <Image src={parent.imageUrl} alt={parent.firstName} width={512} height={512} className="w-10 h-10 rounded-full"/>
           <div className="">
           <h2 className="font-medium capitalize">{parent.firstName.toLowerCase()} {parent.lastName.toLowerCase()}</h2>
-          <p className="text-xmstext-muted-foreground">{parent.relationship}</p>
+          <p className="text-xs text-muted-foreground">{parent.relationship}</p>
         </div>
         </div>
       )
@@ -26,13 +25,13 @@ export const columns: ColumnDef<Parent>[] = [
   },
   {
     accessorKey: "email-phone",
-    header: "View",
+    header: "Contact",
     cell: ({ row }) => {
       const parent = row.original;
       return (
         <div className="">
           <h2 className="font-medium">{parent.email.toLocaleLowerCase()}</h2>
-          <p className="text-xmstext-muted-foreground">{parent.phone}</p>
+          <p className="text-xs text-muted-foreground">{parent.phone}</p>
         </div>
       )
     }
@@ -40,7 +39,7 @@ export const columns: ColumnDef<Parent>[] = [
   
   {
     accessorKey: "nationality",
-    header: "Nationality",
+    header: "Country",
   },
   {
     accessorKey: "view",

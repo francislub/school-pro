@@ -243,6 +243,8 @@ export type Teacher = {
   designation:string,
   departmentId:string,
   departmentName:string,
+  isActive: boolean;
+
   qualification:string,
   mainSubject:string,
   mainSubjectId:string,

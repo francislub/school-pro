@@ -3,22 +3,22 @@
 import DateColumn from "@/components/DataTableColumns/DateColumn";
 import { ColumnDef } from "@tanstack/react-table";
 import ActionColumn from "@/components/DataTableColumns/ActionColumn";
-import { Parent } from "@/types/types";
-import ContactInfoModal from "@/components/DataTableColumns/ContactCard";
+import { Teacher } from "@/types/types";
 import { ParentInfoModal } from "@/components/dashboard/models/parent-info-modal";
 import Image from "next/image";
-export const columns: ColumnDef<Parent>[] = [
+import { TeacherInfoModal } from "@/components/dashboard/models/teacher-info-modal";
+export const columns: ColumnDef<Teacher>[] = [
   {
     accessorKey: "user",
-    header: "View",
+    header: "Name",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <div className="flex items-center gap-1">
-          <Image src={parent.imageUrl} alt={parent.firstName} width={512} height={512} className="w-10 h-10 rounded-full"/>
+          <Image src={teacher.imageUrl} alt={teacher.firstName} width={512} height={512} className="w-10 h-10 rounded-full"/>
           <div className="">
-          <h2 className="font-medium capitalize">{parent.firstName.toLowerCase()} {parent.lastName.toLowerCase()}</h2>
-          <p className="text-xmstext-muted-foreground">{parent.relationship}</p>
+          <h2 className="font-medium capitalize">{teacher.firstName.toLowerCase()} {teacher.lastName.toLowerCase()}</h2>
+          <p className="text-xs text-muted-foreground">{teacher.employeeId}</p>
         </div>
         </div>
       )
@@ -26,13 +26,13 @@ export const columns: ColumnDef<Parent>[] = [
   },
   {
     accessorKey: "email-phone",
-    header: "View",
+    header: "Contact",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <div className="">
-          <h2 className="font-medium">{parent.email.toLocaleLowerCase()}</h2>
-          <p className="text-xmstext-muted-foreground">{parent.phone}</p>
+          <h2 className="font-medium">{teacher.email.toLocaleLowerCase()}</h2>
+          <p className="text-xs text-muted-foreground">{teacher.phone}</p>
         </div>
       )
     }
@@ -40,12 +40,12 @@ export const columns: ColumnDef<Parent>[] = [
   
   {
     accessorKey: "nationality",
-    header: "Nationality",
+    header: "Country",
   },
   {
     accessorKey: "view",
     header: "View",
-    cell: ({ row }) => <ParentInfoModal parent={row.original}/>,
+    cell: ({ row }) => <TeacherInfoModal teacher={row.original}/>,
   },
 
   {
@@ -56,13 +56,13 @@ export const columns: ColumnDef<Parent>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const parent = row.original;
+      const teacher = row.original;
       return (
         <ActionColumn
           row={row}
-          model="parent"
+          model="teacher"
           editEndpoint={'#'}
-          id={parent.id}
+          id={teacher.id}
         />
       );
     },

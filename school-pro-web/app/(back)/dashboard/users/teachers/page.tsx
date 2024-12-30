@@ -3,9 +3,10 @@ import { columns } from "./columns";
 import DataTable from "@/components/DataTableComponents/DataTable";
 import TableHeader from "@/components/dashboard/Tables/TableHeader";
 import { getAllParents } from "@/actions/parents";
+import { getAllTeachers } from "@/actions/teachers";
 
 export default async function page() {
-  const teachers = (await getAllParents()) || [];
+  const teachers = (await getAllTeachers()) || [];
   return (
     <div className="p-8">
       <TableHeader

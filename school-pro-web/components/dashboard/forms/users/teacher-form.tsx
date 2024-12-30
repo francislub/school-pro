@@ -14,6 +14,7 @@ import FormSelectInput from "@/components/FormInputs/FormSelectInput";
 import { TeacherCreateProps } from "@/types/types";
 import { createTeacher } from "@/actions/teachers";
 import FormMultipleSelectInput from "@/components/FormInputs/FormMultipleSelectInput";
+import { generateRollNumber } from "@/lib/generateRoll";
 
 
 type TeacherFormProps = {
@@ -114,7 +115,7 @@ export default function TeacherForm({
     const genders =[
       {
         label:"MALE",
-        value:"Male"
+        value:"MALE"
       },
       {
         label:"FEMALE",
@@ -143,6 +144,7 @@ export default function TeacherForm({
   async function saveStudent(data: TeacherCreateProps) {
     try {
       setLoading(true);
+      data.employeeId = generateRollNumber();
       data.imageUrl = imageUrl;
       data.title = selectedTitle.value;
       data.gender = selectedGender.value;
@@ -263,7 +265,7 @@ export default function TeacherForm({
                     register={register}
                     errors={errors}
                     label="Date Of Birth"
-                    name="dob"
+                    name="dateOfBirth"
                     type="date"
                   />
                   <FormSelectInput
