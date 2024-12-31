@@ -9,6 +9,7 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { Lock, Mail, Phone, Send, User } from "lucide-react";
 import { UserCreateProps } from "@/types/types";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
+import { createUser } from "@/actions/users";
 
 
 export type SelectOptionProps = {
@@ -45,13 +46,13 @@ export default function SchoolAdminForm({schoolId, schoolName}: {schoolId: strin
       data.schoolName = schoolName;
       data.role = "ADMIN";
       console.log(data)
-      // const res = await createSchool(data);
-      // console.log(res)
+      const res = await createUser(data);
+      console.log(res)
 
       setLoading(false);
-      toast.success("Successfully Created")
+      toast.success("Admin Successfully Created")
       reset();
-      // router.push(`/school-admin/${res.id}?name=${res.name}`);
+      router.push("/dashboard");
       
     } catch (error) {
       setLoading(false);

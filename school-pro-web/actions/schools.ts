@@ -29,3 +29,23 @@ export async function createSchool(data:SchoolProps){
     throw error;
    }
 }
+
+export async function getSchoolById(id: string | null | undefined) {
+   if(id){
+    try {
+        const response = await api.get(`/schools/${id}`);
+        const school = response.data.data;
+        return school as School;
+    } catch (error) {
+        console.log(error)
+    }
+   }else {
+    const school = {
+        id: null,
+        name: null,
+        logo: null,
+        slug: null
+    }
+    return school;
+   }
+}

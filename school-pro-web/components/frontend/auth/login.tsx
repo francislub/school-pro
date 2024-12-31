@@ -11,7 +11,9 @@ import PasswordInput from "@/components/FormInputs/PasswordInput";
 import { LogIn, Mail } from "lucide-react";
 import { loginUser } from "@/actions/auth";
 import { useUserSession } from "@/store/auth";
-import { User } from "@/types/types";
+import { School, User } from "@/types/types";
+import { getSchoolById } from "@/actions/schools";
+import useSchoolStore from "@/store/school";
 // export type RegisterInputProps = {
 //   fullName: string;
 //   email: string;
@@ -31,14 +33,19 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginInputProps>();
   const {setUser} = useUserSession();
+  const {setSchool} = useSchoolStore();
   const router = useRouter();
   async function onSubmit(data: LoginInputProps) {
     try {
       setIsLoading(true)
       const sessionData = await loginUser(data)
+      const role = sessionData?.user.role
+      const school = await getSchoolById(sessionData?.user.schoolId);
+
+      setSchool(school as School);
+      
       setUser(sessionData?.user as User)
       console.log(sessionData);
-      const role = sessionData?.user.role
       setIsLoading(false)
 
       if (role === "SUPER_ADMIN") {
