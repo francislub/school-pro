@@ -9,7 +9,7 @@ export default async function page() {
         redirect("/dashboard")
       }
   return (
-    <div>
+    <div> 
       <Login/>
     </div>
   )

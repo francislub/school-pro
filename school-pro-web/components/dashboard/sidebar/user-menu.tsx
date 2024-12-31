@@ -1,7 +1,6 @@
 "use client"
 
 import { AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { SidebarMenuButton } from '@/components/ui/sidebar'
 import { getInitials } from '@/lib/getInitials'
@@ -9,7 +8,7 @@ import { useUserSession } from '@/store/auth'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react'
-import { useRouter } from 'next/router'
+import { useRouter } from "next/navigation";
 import React from 'react'
 
 export default function UserMenu() {

@@ -37,6 +37,7 @@ export default function Login() {
       setIsLoading(true)
       const sessionData = await loginUser(data)
       setUser(sessionData?.user as User)
+      console.log(sessionData);
       const role = sessionData?.user.role
       setIsLoading(false)
 
@@ -45,7 +46,6 @@ export default function Login() {
       } else {
         router.push("/dashboard")
       }
-      // console.log(res)
       
     } catch (error) {
       setIsLoading(false)
@@ -73,16 +73,16 @@ export default function Login() {
               icon={Mail}
             />
 
-            {/* <TextInput
+            <TextInput
               label="Password"
               register={register}
               name="password"
               type="password"
               errors={errors}
               placeholder="******"
-            /> */}
-            <PasswordInput
-              // icon={Lock}
+              icon={LogIn}
+            />
+            {/* <PasswordInput
               label="Password"
               register={register}
               name="password"
@@ -90,7 +90,7 @@ export default function Login() {
               errors={errors}
               placeholder="******"
               forgotPasswordLink="/forgot-password"
-            />
+            /> */}
 
             <SubmitButton
             buttonIcon={LogIn}

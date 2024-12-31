@@ -6,12 +6,12 @@ import { User } from "@/types/types";
 import { ZAxis } from "recharts";
 import { cookies } from "next/headers";
 
-export async function loginUser(data:{ email: string;
-    password: string
+export async function loginUser(data:{ email: string; password: string
 }) {
     try {
     const response = await api.post("/login",data);
     const { user, accessToken, refreshToken } = response.data.data;
+    console.log(user,accessToken,refreshToken)
     const userData = response.data.data
     await createServerSession(userData)
     return response.data.data as SessionData;
