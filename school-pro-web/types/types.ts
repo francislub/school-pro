@@ -270,3 +270,19 @@ export interface User {
   schoolId?: string | null;
   schoolName?: string | null;
 }
+export type School = {
+  id: string;
+  name: string;
+  logo: string | null;
+  slug: string;
+}
+export type UserCreateProps = {
+  email: string;
+  password: string;
+  role: "SUPER_ADMIN"|"ADMIN"|"TEACHER"|"STUDENT"|"PARENT";
+  name: string;
+  phone?: string;
+  image?: string;
+  schoolId?: string;
+  schoolName?: string;
+};

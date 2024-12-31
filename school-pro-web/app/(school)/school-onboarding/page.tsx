@@ -11,7 +11,6 @@ export default async function page() {
     redirect("/login")
   }
   return (
-    <div>
       <div className="max-w-3xl mx-auto p-16">
         {/* Tab Content */}
         <Card className="border-t-4 border-blue-600 shadow">
@@ -20,6 +19,5 @@ export default async function page() {
           </CardContent>
         </Card>
       </div>
-    </div>
   )
 }
