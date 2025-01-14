@@ -16,12 +16,14 @@ export type Contact = {
 
 export type ClassCreateProps ={
   title: string;
+  schoolId: string;
   // slug: string;
 };
 
 export type DepartmentCreateProps ={
   name: string;
-  slug: string;
+  // slug: string;
+  schoolId: string;
 };
 export type SubjectCreateProps ={
   name: string;
@@ -37,6 +39,7 @@ export type StreamCreateProps ={
   title: string;
   // slug: string;
   classId: string;
+  schoolId:string;
 }
 
 export type Class ={

@@ -16,6 +16,7 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { ClassCreateProps, StreamCreateProps } from "@/types/types";
 import { createStream } from "@/actions/classes";
 import toast from "react-hot-toast";
+import useSchoolStore from "@/store/school";
  
 export type ClassProps={
     name:string
@@ -41,9 +42,10 @@ export default function StreamForm({
   });
  
   const [loading, setLoading] = useState(false);
- 
+  const {school}=useSchoolStore()
   async function saveStream(data: StreamCreateProps) {
     data.classId = classId;
+    data.schoolId=school?.id ?? "";
     try {
       setLoading(true);
       if (editingId) {

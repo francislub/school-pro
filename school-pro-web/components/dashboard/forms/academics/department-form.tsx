@@ -17,16 +17,16 @@ import { createClass } from "@/actions/classes";
 import toast from "react-hot-toast";
 import { ClassCreateProps, DepartmentCreateProps } from "@/types/types";
 import { createDepartment } from "@/actions/departments";
+import useSchoolStore from "@/store/school";
  
 export type DepartmentProps={
-    title:string
+    name:string
 }
 export default function DepartmentForm({
-  userId,
   initialContent,
   editingId,
 }: {
-  userId?: string;
+  // userId?: string;
   initialContent?: string;
   editingId?: string;
 }) {
@@ -42,9 +42,12 @@ export default function DepartmentForm({
   });
  
   const [loading, setLoading] = useState(false);
+
+  const {school} = useSchoolStore(); 
  
   async function saveDepartment(data: DepartmentCreateProps) {
     // data.userId = userId;
+    data.schoolId = school?.id ?? "";
     try {
       setLoading(true);
       if (editingId) {

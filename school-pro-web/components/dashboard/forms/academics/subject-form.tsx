@@ -204,7 +204,7 @@ const [selectedType, setSelectedType ] = useState<any>(types[0])
 
                   <div className="grid gap-3">
                     <FormSelectInput
-                        label="Subject"
+                        label="Department"
                         options={departments}
                         option={selectedDepartment}
                         setOption={setSelectedDepartment}

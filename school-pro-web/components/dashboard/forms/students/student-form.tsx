@@ -16,6 +16,7 @@ import { createStudents } from "@/actions/students";
 import RadioInput from "@/components/FormInputs/RadioInput";
 import { generateRegistrationNumber } from "@/lib/generateRegNo";
 import { generateRollNumber } from "@/lib/generateRoll";
+import useSchoolStore from "@/store/school";
 
 
 export type SelectOptionProps = {
@@ -55,6 +56,8 @@ export type StudentProps = {
   regNo:string;
   admissionDate:string;
   address:string;
+  schoolId:string;
+  schoolName:string;
 
 }
 export default function SingleStudentForm({
@@ -149,11 +152,14 @@ export default function SingleStudentForm({
       label:"Sponsored Student",
       id:"SS"
     },
-  ]
+  ];
+  const {school}= useSchoolStore()
 
   async function saveStudent(data: StudentProps) {
     try {
       setLoading(true);
+      data.schoolId=school?.id??"";
+      data.schoolName=school?.name??"";
       data.imageUrl = imageUrl;
       data.name = `${data.firstName} ${data.lastName}`;
       data.parentId = selectedParent.value;

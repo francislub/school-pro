@@ -39,12 +39,15 @@ export default function Login() {
     try {
       setIsLoading(true)
       const sessionData = await loginUser(data)
-      const role = sessionData?.user.role
+      const role = sessionData?.user.role;
+      //Fetch the school
+
+      
       const school = await getSchoolById(sessionData?.user.schoolId);
 
       setSchool(school as School);
       
-      setUser(sessionData?.user as User)
+      setUser(sessionData?.user as User);
       console.log(sessionData);
       setIsLoading(false)
 

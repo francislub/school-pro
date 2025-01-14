@@ -37,9 +37,9 @@ const departments = [
   // Add more sample departments...
 ]
 
-export default function DepartmentListing({departments}:{departments:Department[]}) {
-    const [selectedDept, setSelectedDept] = useState(departments[0])
-    const [isMobileOpen, setIsMobileOpen] = useState(false)
+export default function DepartmentListing({departments, }:{departments:Department[];}) {
+    const [selectedDept, setSelectedDept] = useState(departments[0]);
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
 
     return (
         <div className="flex h-screen bg-background">
@@ -54,7 +54,8 @@ export default function DepartmentListing({departments}:{departments:Department[
                 </div>
 
                 </div>
-                <ScrollArea className="flex-1">
+                {departments.length>0?(
+                    <ScrollArea className="flex-1">
                     {departments.map((dept) => (
                         <div key={dept.id}
                         className={`p-4 flex items-center justify-between hover:bg-muted/50 cursor-pointer ${
@@ -78,6 +79,11 @@ export default function DepartmentListing({departments}:{departments:Department[
                         </div>
                     ))}
                 </ScrollArea>
+                ):(
+                    <div className="">
+                        <h2 className="p-4">No Departments</h2>
+                    </div>
+                )}
                 </div>
 
                 {/* Mobile sidebar */}
@@ -87,7 +93,8 @@ export default function DepartmentListing({departments}:{departments:Department[
                     <SheetTitle>Department</SheetTitle>
                     </SheetHeader>
 
-                    <ScrollArea className="flex-1 mt-4">
+                    {departments.length>0 ?(
+                        <ScrollArea className="flex-1 mt-4">
                         {departments.map((dept) => (
                             <div key={dept.id}
                             className={`p-4 flex items-center justify-between hover:bg-muted/50 cursor-pointer ${
@@ -115,13 +122,19 @@ export default function DepartmentListing({departments}:{departments:Department[
                         ))}
                         
                     </ScrollArea>
+                    ):(
+                        <div className="">
+                            <h2 className="p-4">No Departments</h2>
+                        </div>
+                    )}
 
                 </SheetContent>
                 </Sheet>
 
                 {/* main content  */}
 
-                <div className="flex-1 flex flex-col h-full overflow-hidden">
+                {selectedDept && (
+                    <div className="flex-1 flex flex-col h-full overflow-hidden">
                     <div className="flex items-center justify-between p-4 border-b">
                         <div className="flex items-center gap-4">
                           <Button 
@@ -287,7 +300,8 @@ export default function DepartmentListing({departments}:{departments:Department[
                        </div>
                     </ScrollArea>
                 </div>
-            </div>
+                )}
+        </div>
     )
 }
 

@@ -16,12 +16,13 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import { createClass } from "@/actions/classes";
 import toast from "react-hot-toast";
 import { ClassCreateProps } from "@/types/types";
+import useSchoolStore from "@/store/school";
  
 export type ClassProps={
-    title:string
+    title:string,
+    schoolId: string
 }
 export default function ClassForm({
-  userId,
   initialContent,
   editingId,
 }: {
@@ -41,8 +42,11 @@ export default function ClassForm({
   });
  
   const [loading, setLoading] = useState(false);
- 
+  
+  const {school} = useSchoolStore();
   async function saveClass(data: ClassCreateProps) {
+
+    data.schoolId = school?.id ?? "";
     // data.userId = userId;
     try {
       setLoading(true);
@@ -52,6 +56,7 @@ export default function ClassForm({
         // toast.success("Updated Successfully!");
       } else {
         const res = await createClass(data);
+        console.log(data)
         setLoading(false);
         toast.success("Class Successfully Created!");
         reset()

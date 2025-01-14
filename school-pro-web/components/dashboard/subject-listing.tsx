@@ -64,7 +64,8 @@ export default function SubjectListing({
                 {/* </div> */}
 
                 </div>
-                <ScrollArea className="flex-1">
+                {subjects.length>0 ? (
+                    <ScrollArea className="flex-1">
                     {subjects.map((subject) => (
                         <div key={subject.id}
                         className={`p-4 flex items-center justify-between hover:bg-muted/50 cursor-pointer ${
@@ -88,6 +89,11 @@ export default function SubjectListing({
                         </div>
                     ))}
                 </ScrollArea>
+                ):(
+                    <div className="p-4">
+                        <h2>No Subject</h2>
+                    </div>
+                )}
                 </div>
 
                 {/* Mobile sidebar */}
@@ -100,12 +106,13 @@ export default function SubjectListing({
                     </Button>
                     </SheetHeader>
 
-                    <ScrollArea className="flex-1 mt-4">
-                        {subjects.map((subject) => (
+                    {subjects.length>0 ? (
+                        <ScrollArea className="flex-1 mt-4">
+                        {subjects.map((subject, i) => (
                             <div 
-                            key={subject.id}
+                            key={i}
                             className={`p-4 flex items-center justify-between hover:bg-muted/50 cursor-pointer ${
-                                selectedSubject.id === subject.id ? "bg-muted" : ""
+                                selectedSubject?.id === subject?.id ? "bg-muted" : ""
                             }`}
                             onClick={() => {
                                 setSelectedSubject(subject)
@@ -129,13 +136,18 @@ export default function SubjectListing({
                         ))}
                         
                     </ScrollArea>
+                    ): (
+                        <div className="p-4">
+                            <h2>No Subjects</h2>
+                        </div>
+                    )}
 
                 </SheetContent>
                 </Sheet>
 
                 {/* main content  */}
 
-                <div className="flex-1 flex flex-col h-full overflow-hidden">
+                {subjects.length>0 && selectedSubject && <div className="flex-1 flex flex-col h-full overflow-hidden">
                     <div className="flex items-center justify-between p-4 border-b">
                         <div className="flex items-center gap-4">
                           <Button 
@@ -377,7 +389,7 @@ export default function SubjectListing({
                         {/* </Card> */}
                        </div>
                     </ScrollArea>
-                </div>
+                </div>}
             </div>
     )
 }

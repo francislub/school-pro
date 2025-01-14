@@ -1,9 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { api } from "./schools";
 import { User } from "@/types/types";
-import { ZAxis } from "recharts";
 import { cookies } from "next/headers";
 
 export async function loginUser(data:{ email: string; password: string
@@ -13,7 +11,7 @@ export async function loginUser(data:{ email: string; password: string
     const { user, accessToken, refreshToken } = response.data.data;
     console.log(user,accessToken,refreshToken)
     const userData = response.data.data
-    await createServerSession(userData)
+    await createServerSession(userData);
     return response.data.data as SessionData;
 
     }catch (error) {

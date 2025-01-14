@@ -24,7 +24,12 @@ export default function Logo({ variant="light",size="md" }:{variant?:"dark"| "li
 
                 {/* <span className={cn("font-bold text-xl",size==="lg"&&"text-3xl")}>School<span className="text-blue-500">Pro</span>
                 </span> */}
-                <Image alt={school?.name??"School Pro"} src={school?.logo??"/images/logo.png"} width={200} height={150} className="W-44"/>
+                <Image 
+                alt={school?.name?? "School Pro"} 
+                src={school?.logo?? "/images/logo.png"} 
+                width={100} 
+                height={60} 
+                className="W-34"/>
             </Link>
           );
     }else{
@@ -36,7 +41,10 @@ export default function Logo({ variant="light",size="md" }:{variant?:"dark"| "li
                 </span>
                 </div>
                 {/* <span className="font-bold text-xl">School<span className="text-blue-200">Pro</span></span> */}
-                <Image alt={school?.name??"School Pro"} src={school?.logo??"/images/logo.png"} width={500} height={150} className="W-44"/>
+                <Image 
+                alt={school?.name??"School Pro"} 
+                src={school?.logo??"/images/logo.png"} 
+                width={100} height={60} className="W-44"/>
             </Link>
           );
     }
