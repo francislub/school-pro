@@ -19,6 +19,7 @@ export async function createTeacher(data:TeacherCreateProps){
    try {
    
     const response = await api.post("/teachers",data);
+    // console.log("response", response)
     revalidatePath("/dashboard/users/teachers");
     return response.data;
    } catch (error) {

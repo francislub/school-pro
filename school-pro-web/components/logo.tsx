@@ -15,6 +15,7 @@ export default function Logo({ variant="light",size="md" }:{variant?:"dark"| "li
     const {school} = useSchoolStore()
     if (variant==="light"){
         return (
+            <div className="flex items-center justify-center h-full">
             <Link href={"/"} className="flex items-center space-x-2">
                 <div className="bg-blue-500 rounded-full p-1 md:hidden">
                 <span className="font-bold text-xl text-white">
@@ -29,12 +30,15 @@ export default function Logo({ variant="light",size="md" }:{variant?:"dark"| "li
                 src={school?.logo?? "/images/logo.png"} 
                 width={100} 
                 height={60} 
+                priority
                 className="W-34"/>
             </Link>
+         </div>
           );
     }else{
         return (
-            <Link href={"/"} className="flex items-center space-x-2">
+            <div className="flex items-center justify-center h-full">
+            <Link href={"/"} className="flex space-x-2">
                 <div className="bg-white rounded-full p-1 md:hidden">
                 <span className="text-blue-800 font-bold text-xl">
                     <GraduationCap />
@@ -44,8 +48,11 @@ export default function Logo({ variant="light",size="md" }:{variant?:"dark"| "li
                 <Image 
                 alt={school?.name??"School Pro"} 
                 src={school?.logo??"/images/logo.png"} 
-                width={100} height={60} className="W-44"/>
+                width={100} height={60} 
+                priority
+                className="W-44"/>
             </Link>
+            </div>
           );
     }
   

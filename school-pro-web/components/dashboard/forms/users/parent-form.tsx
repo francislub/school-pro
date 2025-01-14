@@ -20,8 +20,8 @@ import TextArea from "@/components/FormInputs/TextAreaInput";
 import toast from "react-hot-toast";
 import PasswordInput from "@/components/FormInputs/PasswordInput";
 import FormSelectInput from "@/components/FormInputs/FormSelectInput";
-import CountryDropdown from "@/components/FormInputs/country";
 import { createParents } from "@/actions/parents";
+import useSchoolStore from "@/store/school";
 
 
 export type SelectOptionProps = {
@@ -35,21 +35,23 @@ type SingleStudentFormProps = {
 
 export type ParentProps = {
   title:string;
-  firstName:string,
-  lastName:string,
-  relationship:string,
-  email:string,
-  NIN:string,
-  gender:string,
-  dob:string,
-  phone:string,
-  nationality:string,
-  whatsapNo:string,
-  contactMethod:string,
-  occupation:string,
-  address:string,
-  password:string,
-  imageUrl:string,
+  firstName:string;
+  lastName:string;
+  relationship:string;
+  email:string;
+  NIN:string;
+  gender:string;
+  dob:string;
+  phone:string;
+  nationality:string;
+  whatsapNo:string;
+  contactMethod:string;
+  occupation:string;
+  address:string;
+  password:string;
+  imageUrl:string;
+  schoolId:string;
+  schoolName:string;
 }
 export default function ParentForm({
   editingId,
@@ -144,9 +146,11 @@ export default function ParentForm({
   const initialImage = initialData?.imageUrl || "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveStudent(data: ParentProps) {
+  async function saveParent(data: ParentProps) {
     try {
       setLoading(true);
+      data.schoolId = school?.id??"";
+      data.schoolName = school?.name??"";
       data.imageUrl = imageUrl;
       data.title = selectedTitle.value;
       data.relationship = selectedRelationship.value;
@@ -174,9 +178,9 @@ export default function ParentForm({
     }
   }
   
-
+  const {school} = useSchoolStore();
   return (
-    <form className="" onSubmit={handleSubmit(saveStudent)}>
+    <form className="" onSubmit={handleSubmit(saveParent)}>
       <FormHeader
         href="/parents"
         parent="users"

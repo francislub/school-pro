@@ -226,6 +226,8 @@ export type TeacherCreateProps = {
   experience:number,
   address:string,
   imageUrl:string,
+  schoolId:string,
+  schoolName:string,
 }
 export type Teacher = {
   id:string;

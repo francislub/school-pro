@@ -15,6 +15,7 @@ import { TeacherCreateProps } from "@/types/types";
 import { createTeacher } from "@/actions/teachers";
 import FormMultipleSelectInput from "@/components/FormInputs/FormMultipleSelectInput";
 import { generateRollNumber } from "@/lib/generateRoll";
+import useSchoolStore from "@/store/school";
 
 
 type TeacherFormProps = {
@@ -140,9 +141,12 @@ export default function TeacherForm({
   const [loading, setLoading] = useState(false);
   const initialImage = initialData?.imageUrl || "/images/man.png";
   const [imageUrl, setImageUrl] = useState(initialImage);
+  const { school } = useSchoolStore();
 
-  async function saveStudent(data: TeacherCreateProps) {
+  async function saveTeacher(data: TeacherCreateProps) {
     try {
+      data.schoolId = school?.id??"";
+      data.schoolName = school?.name??"";
       setLoading(true);
       data.employeeId = generateRollNumber();
       data.imageUrl = imageUrl;
@@ -157,6 +161,7 @@ export default function TeacherForm({
       data.subjects = selectedSubjects.map((item: any) => item.label);
       data.classIds = selectedClasses.map((item: any) => item.value);
       data.classes = selectedClasses.map((item: any) => item.label);
+
       data.experience = Number(data.experience)
 
       if (editingId) {
@@ -168,6 +173,7 @@ export default function TeacherForm({
         // setImageUrl("/placeholder.svg");
       } else {
         const res = await createTeacher(data);
+        console.log("res", res)
         setLoading(false);
         toast.success("Teacher Successfully Created!");
         reset();
@@ -182,7 +188,7 @@ export default function TeacherForm({
   
 
   return (
-    <form className="" onSubmit={handleSubmit(saveStudent)}>
+    <form className="" onSubmit={handleSubmit(saveTeacher)}>
       <FormHeader
         href="/teachers"
         parent="users"
