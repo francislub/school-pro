@@ -3,8 +3,10 @@
 import * as React from "react";
 import {
   ArrowRight,
+  Clock,
   DollarSign,
   LayoutDashboard,
+  LayoutGrid,
   Package,
   ShoppingCart,
   
@@ -32,6 +34,7 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Analytics } from "@/actions/analytics";
+import { ColorWheelIcon } from "@radix-ui/react-icons";
 
 const salesData = [
   { name: "Sun", value: 0 },
@@ -96,27 +99,45 @@ const recentOrders = [
 ];
 
 export default function DashbaordDetails({analytics}:{analytics:Analytics[]}) {
+  const colors = [
+      "bg-blue-500",
+      "bg-teal-500",
+      "bg-green-500",
+      "bg-orange-500",
+  ]
   return (
     <div className="space-y-6">
           {analytics.length>0 && <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {analytics.map((item, i)=> {
+              const color =colors[i % colors.length]
+
               return (
                 <Card key={i}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {item.title}
-                </CardTitle>
-                <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
+              <CardHeader className="relative overflow-hidden hover:shadow-md transition-shadow">
+                <CardContent className="p-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      {item.title}
+                    </p>
+                    <p className="text-2xl font-semibold tracking-tight">
+                      {item.count.toLocaleString()}
+                    </p>
+
+                  </div>
+                  <div className={`${color} bg-opacity-10 p-2 rounded-full`}>
+
+                    <LayoutGrid className={`h-4 w-4 ${color.replace("bg-", "text-")}`}/>
+
+                  </div>
+                </div>
+
+                <button className="mt-3 text-sm font-medium text-blue-500 hover:text-blue-600 transition-colors">
+                   View Details <span className="ml-1">→</span>
+                </button>
+
+                </CardContent>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{item.count.toLocaleString()}</div>
-                <Button
-                  variant="link"
-                  className="px-0 text-xs text-muted-foreground"
-                >
-                  View Details
-                </Button>
-              </CardContent>
             </Card>
             
               )

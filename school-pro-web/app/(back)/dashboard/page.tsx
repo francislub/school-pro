@@ -15,7 +15,7 @@ export default async function Dashboard() {
   }
   return (
     
-        <div className="flex-1 space-y-4 p-4">
+        <div className="flex-1 space-y-4 p-8">
           <WelcomeBanner 
           userName={user?.name} 
           userRole={user?.role} 
