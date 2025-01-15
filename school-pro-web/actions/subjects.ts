@@ -36,9 +36,9 @@ export async function deleteSubject(id:string) {
     };
 }
 
-export async function getAllSubjects() {
+export async function getAllSubjects(schoolId: string) {
     try {
-        const response = await api.get("/subjects");
+        const response = await api.get(`/subjects/school/${schoolId}`);
         const subjects = response.data
         return subjects as Subject[];
     } catch (error) {
@@ -46,9 +46,9 @@ export async function getAllSubjects() {
     }
 }
 
-export async function getBriefSubject() {
+export async function getBriefSubject(schoolId:string) {
     try {
-        const response = await api.get("/subjects/brief");
+        const response = await api.get(`/subjects/brief/${schoolId}`);
         const subjects = response.data
         return subjects as SubjectBrief[];
     } catch (error) {

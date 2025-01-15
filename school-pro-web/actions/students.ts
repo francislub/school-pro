@@ -37,18 +37,18 @@ export async function deleteStudent(id:string) {
     };
 }
 
-export async function getAllStudents() {
+export async function getAllStudents(schoolId:string) {
     try {
-        const response = await api.get("/students");
+        const response = await api.get(`/students/school/${schoolId}`);
         const students = response.data
         return students as Student[];
     } catch (error) {
         console.log(error)
     }
 }
-export async function getAllStudentNextSequence() {
+export async function getAllStudentNextSequence(schoolId:string) {
     try {
-        const response = await api.get("/students/seq");
+        const response = await api.get(`/students/seq/${schoolId}`);
         const nextSeq = response.data
         return nextSeq as number;
     } catch (error) {

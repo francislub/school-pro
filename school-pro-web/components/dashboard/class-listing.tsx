@@ -69,7 +69,9 @@ export default function ClassListing({classes}:{classes:Class[]}){
             </div>
             <ClassForm />
          </div>
-            <div className="px-4 py-2">
+            {classes.length>0 ?(
+               <>
+               <div className="px-4 py-2">
                 <Input 
                 placeholder="Search Classes...."
                 className="h-9"
@@ -135,6 +137,12 @@ export default function ClassListing({classes}:{classes:Class[]}){
                     ))}
                 </div>
             </ScrollArea>
+               </> 
+            ):(
+                <div className="p-4">
+                    <h2>No Classes</h2>
+                </div>
+            )}
 
          </div>
         {/* //  Main content */}

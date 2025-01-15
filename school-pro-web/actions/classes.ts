@@ -52,19 +52,19 @@ export async function deleteClass(id:string) {
     };
 }
 
-export async function getAllClasses() {
+export async function getAllClasses(schoolId: string) {
     try {
-        const response = await api.get("/classes");
-        const classes = response.data
+        const response = await api.get(`/classes/school/${schoolId}`);
+        const classes = response.data;
         return classes as Class[];
     } catch (error) {
         console.log(error)
     }
 }
 
-export async function getBriefClasses() {
+export async function getBriefClasses(schoolId:string) {
     try {
-        const response = await api.get("/classes/brief");
+        const response = await api.get(`/classes/brief/${schoolId}`);
         console.log("Response", response)
         const classes = response.data
         return classes as ClassBrief[];

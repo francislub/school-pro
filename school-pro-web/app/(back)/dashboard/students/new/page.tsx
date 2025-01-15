@@ -7,11 +7,13 @@ import InfoBanner from "@/components/info-banner";
 import { getAllClasses } from "@/actions/classes";
 import { getAllParents } from "@/actions/parents";
 import { getAllStudentNextSequence } from "@/actions/students";
+import { getServerSchool } from "@/actions/auth";
 
 export default async function AdmissionTabs() {
-  const classes = await getAllClasses()||[]
-  const parents = await getAllParents()||[]
-  const nextSequence = await getAllStudentNextSequence()||0
+  const school = await getServerSchool();
+  const classes = await getAllClasses(school?.id?? "")||[]
+  const parents = await getAllParents(school?.id?? "")||[]
+  const nextSequence = await getAllStudentNextSequence(school?.id?? "")||0
   return (
     <div className="w-full max-w-5xl mx-auto p-6">
       <Tabs defaultValue="single" className="w-full">

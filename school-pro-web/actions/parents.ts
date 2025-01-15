@@ -37,9 +37,9 @@ export async function deleteParent(id:string) {
     };
 }
 
-export async function getAllParents() {
+export async function getAllParents(schoolId:string) {
     try {
-        const response = await api.get("/parents");
+        const response = await api.get(`/parents/school/${schoolId}`);
         const parents = response.data
         return parents as Parent[];
     } catch (error) {

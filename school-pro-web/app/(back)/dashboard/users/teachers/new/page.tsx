@@ -3,16 +3,18 @@ import TeacherForm from "@/components/dashboard/forms/users/teacher-form";
 import { getBriefClasses } from "@/actions/classes";
 import { getBriefSubject } from "@/actions/subjects";
 import { getBriefDepartments } from "@/actions/departments";
+import { getServerSchool } from "@/actions/auth";
 
 export default async function AdmissionTabs() {
   // classes
-  const classesData = (await getBriefClasses())||[]
+  const school = await getServerSchool()
+  const classesData = (await getBriefClasses(school?.id?? ""))||[]
   console.log("classesData", classesData)
   // subjects
-  const subjectsData = (await getBriefSubject())||[]
+  const subjectsData = (await getBriefSubject(school?.id?? ""))||[]
   console.log("subjectsData", subjectsData)
   // department 
-  const departmentData = (await getBriefDepartments())||[]
+  const departmentData = (await getBriefDepartments(school?.id?? ""))||[]
 
   const classes = classesData.map((item)=> {
     return {

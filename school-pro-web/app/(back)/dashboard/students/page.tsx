@@ -3,9 +3,11 @@ import { columns } from "./columns";
 import DataTable from "@/components/DataTableComponents/DataTable";
 import TableHeader from "@/components/dashboard/Tables/TableHeader";
 import { getAllStudents } from "@/actions/students";
+import { getServerSchool } from "@/actions/auth";
 
 export default async function page() {
-  const students = (await getAllStudents()) || [];
+  const school = await getServerSchool()
+  const students = (await getAllStudents(school?.id??"")) || [];
   return (
     <div className="p-8">
       <TableHeader

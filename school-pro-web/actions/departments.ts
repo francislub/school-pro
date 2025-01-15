@@ -1,9 +1,7 @@
 "use server"
 
 import axios from "axios"
-import { Class, ClassCreateProps, Department, DepartmentBrief, StreamCreateProps } from "@/types/types";
-import { Stream } from "stream";
-import { DepartmentCreateProps } from "../../school-pro-api/src/types/types";
+import {  Department, DepartmentBrief, DepartmentCreateProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 const BASE_API_URL = process.env.API_URL || "";
@@ -38,9 +36,9 @@ export async function deleteDepartment(id:string) {
     };
 }
 
-export async function getAllDepartments() {
+export async function getAllDepartments(schoolId:string) {
     try {
-        const response = await api.get("/departments");
+        const response = await api.get(`/departments/school/${schoolId}`);
         const departments = response.data
         return departments as Department[];
     } catch (error) {
@@ -48,9 +46,9 @@ export async function getAllDepartments() {
     }
 }
 
-export async function getBriefDepartments() {
+export async function getBriefDepartments(schoolId:String) {
     try {
-        const response = await api.get("/departments/brief");
+        const response = await api.get(`/departments/brief/${schoolId}`);
         const departments = response.data
         return departments as DepartmentBrief[];
     } catch (error) {

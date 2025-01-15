@@ -38,9 +38,9 @@ export async function deleteTeacher(id:string) {
     };
 }
 
-export async function getAllTeachers() {
+export async function getAllTeachers(schoolId:string) {
     try {
-        const response = await api.get("/teachers");
+        const response = await api.get(`/teachers/school/${schoolId}`);
         const teachers = response.data
         return teachers as Teacher[];
     } catch (error) {
