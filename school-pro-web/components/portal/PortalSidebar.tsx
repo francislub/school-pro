@@ -24,8 +24,9 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { User } from "@/types/types";
 
-export default function PortalSidebar() {
+export default function PortalSidebar({user}:{user:User}) {
     const sidebarLinks = [
         {
           title: "Dashboard",

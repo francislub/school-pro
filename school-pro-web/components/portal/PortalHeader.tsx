@@ -2,14 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Home,
   LineChart,
   Menu,
@@ -23,31 +15,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-export function getInitials(name: string | null | undefined): string {
-  if (name) {
-    // Split the name into an array of words
-    const nameParts = name.split(" ");
+import UserAvatar from "./UserAvatar";
+import {User } from "@/types/types";
 
-    // Map each word to its first letter and convert to uppercase
-    const initials = nameParts.map((part) => part.charAt(0).toUpperCase());
-
-    // Join the initials to form the final string
-    return initials.join("");
-  } else {
-    return "CN";
-  }
-}
-
-export default function PortalHeader() {
+export default function PortalHeader({user}:{user:User}) {
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <Sheet>
@@ -110,20 +82,9 @@ export default function PortalHeader() {
                 </Link>
               </nav>
               <div className="mt-auto">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Upgrade to Pro</CardTitle>
-                    <CardDescription>
-                      Unlock all features and get unlimited access to our
-                      support team.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button size="sm" className="w-full">
-                      Upgrade
-                    </Button>
-                  </CardContent>
-                </Card>
+              <Button size="sm" className="w-full">
+                Logout
+            </Button>
               </div>
             </SheetContent>
           </Sheet>
@@ -139,30 +100,7 @@ export default function PortalHeader() {
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="cursor-pointer">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel className="text-center">
-                Jb web developer
-              </DropdownMenuLabel>
-              <DropdownMenuLabel className="text-center font-light text-sm text-slate-500">
-                jbwebdeveloper@gmail.com
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+           <UserAvatar user={user}/>
         </header>
   )
 }
