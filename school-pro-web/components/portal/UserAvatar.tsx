@@ -12,8 +12,19 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "@/types/types";
 import { getInitials } from "@/lib/getInitials";
+import { useRouter } from "next/navigation";
+import { useUserSession } from "@/store/auth";
 
 export default function UserAvatar({user}:{user:User}) {
+    const {user:data, clearSession} = useUserSession();
+    
+    const router = useRouter();
+
+    async function handleLogout(){
+    await clearSession();
+    router.push("/login")
+    }
+
     const initials = getInitials(user?.name);
   return (
    <DropdownMenu>
@@ -37,7 +48,7 @@ export default function UserAvatar({user}:{user:User}) {
                  <DropdownMenuItem>Settings</DropdownMenuItem>
                  <DropdownMenuItem>Support</DropdownMenuItem>
                  <DropdownMenuSeparator />
-                 <DropdownMenuItem>Logout</DropdownMenuItem>
+                 <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
                </DropdownMenuContent>
              </DropdownMenu>
   )

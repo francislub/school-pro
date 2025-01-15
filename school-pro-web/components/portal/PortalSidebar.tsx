@@ -7,6 +7,7 @@ import {
     Home,
     LayoutGrid,
     LineChart,
+    LucideIcon,
     Package,
     Package2,
     ShoppingCart,
@@ -15,26 +16,99 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
-import { User } from "@/types/types";
+import { usePathname, useRouter } from "next/navigation";
+import { User, UserRole } from "@/types/types";
+import { useUserSession } from "@/store/auth";
 
-export default function PortalSidebar({user}:{user:User}) {
-    const sidebarLinks = [
+interface NavLink {
+    title: string
+    href: string
+    icon: LucideIcon
+    count?: number
+}
+
+
+type RoleLinks = {
+    [K in UserRole]: NavLink[]
+}
+function renderLoggedInUserLinks(role:UserRole):NavLink[] {
+  const commonLinks =[
+    {
+        title: "Dashboard",
+        href: "/dashboard",
+        icon: Home,
+      },
+  ]
+  const links:RoleLinks = {
+    SUPER_ADMIN:[
         {
-          title: "Dashboard",
-          href: "/dashboard",
-          icon: Home,
-        },
+            title: "Dashboard",
+            href: "/dashboard",
+            icon: Home,
+          },
+    ],
+    ADMIN: [
+        
+          {
+            title: "Orders",
+            href: "/dashboard/orders",
+            icon: ShoppingCart,
+            count: 6,
+          },
+          {
+            title: "Products",
+            href: "/dashboard/products",
+            icon: Package,
+          },
+          {
+            title: "Customers",
+            href: "/dashboard/customers",
+            icon: Users,
+          },
+          {
+            title: "Categories",
+            href: "/dashboard/categories",
+            icon: LayoutGrid,
+          },
+          {
+            title: "Analytics",
+            href: "/dashboard/analytics",
+            icon: LineChart,
+          },
+    ],
+    TEACHER: [
+        
+          {
+            title: "Exams",
+            href: "/dashboard/orders",
+            icon: ShoppingCart,
+            count: 6,
+          },
+          {
+            title: "Products",
+            href: "/dashboard/products",
+            icon: Package,
+          },
+    ],
+    PARENT: [
+        
+          {
+            title: "Students",
+            href: "/dashboard/orders",
+            icon: ShoppingCart,
+            count: 6,
+          },
+          {
+            title: "Products",
+            href: "/dashboard/products",
+            icon: Package,
+          },
+    ],
+    SECRETARY: [
+        
         {
-          title: "Orders",
+          title: "Users",
           href: "/dashboard/orders",
           icon: ShoppingCart,
           count: 6,
@@ -44,22 +118,37 @@ export default function PortalSidebar({user}:{user:User}) {
           href: "/dashboard/products",
           icon: Package,
         },
+  ],
+    STUDENT: [
+        
         {
-          title: "Customers",
-          href: "/dashboard/customers",
-          icon: Users,
+          title: "Timetable",
+          href: "/dashboard/orders",
+          icon: ShoppingCart,
+          count: 6,
         },
         {
-          title: "Categories",
-          href: "/dashboard/categories",
-          icon: LayoutGrid,
+          title: "Products",
+          href: "/dashboard/products",
+          icon: Package,
         },
-        {
-          title: "Analytics",
-          href: "/dashboard/analytics",
-          icon: LineChart,
-        },
-      ];
+  ]
+  }
+  return [...commonLinks, ...(links[role])]
+}
+
+export default function PortalSidebar({userRole}:{userRole:UserRole}) {
+    const sidebarLinks = renderLoggedInUserLinks(userRole);
+
+    const {user:data, clearSession} = useUserSession();
+        
+          const router = useRouter();
+    
+          async function handleLogout(){
+            await clearSession();
+            router.push("/login")
+          }
+
       const pathname = usePathname();
   return (
     <div className="hidden border-r bg-muted/40 md:block">
@@ -113,7 +202,7 @@ export default function PortalSidebar({user}:{user:User}) {
 
 
           <div className="mt-auto p-4">
-          <Button size="sm" className="w-full">
+          <Button onClick={handleLogout} size="sm" className="w-full">
             Logout
           </Button>
           </div>

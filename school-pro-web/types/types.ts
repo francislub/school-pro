@@ -267,7 +267,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  role: 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'STIDENT' | 'PARENT';
+  role: UserRole;
   createdAt: string;
   updatedAt: string;
   image?: string | null;
@@ -284,10 +284,12 @@ export type School = {
 export type UserCreateProps = {
   email: string;
   password: string;
-  role: "SUPER_ADMIN"|"ADMIN"|"TEACHER"|"STUDENT"|"PARENT";
+  role: UserRole;
   name: string;
   phone?: string;
   image?: string;
   schoolId?: string;
   schoolName?: string;
 };
+
+export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'STUDENT' | 'PARENT'| 'SECRETARY';
