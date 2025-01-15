@@ -53,8 +53,10 @@ export default function Login() {
 
       if (role === "SUPER_ADMIN") {
         router.push("/school-onboarding");
-      } else {
+      } else if(role === "ADMIN"){
         router.push("/dashboard")
+      } else {
+        router.push("/portal")
       }
       
     } catch (error) {
@@ -83,7 +85,7 @@ export default function Login() {
               icon={Mail}
             />
 
-            <TextInput
+            {/* <TextInput
               label="Password"
               register={register}
               name="password"
@@ -91,8 +93,8 @@ export default function Login() {
               errors={errors}
               placeholder="******"
               icon={LogIn}
-            />
-            {/* <PasswordInput
+            /> */}
+            <PasswordInput
               label="Password"
               register={register}
               name="password"
@@ -100,7 +102,7 @@ export default function Login() {
               errors={errors}
               placeholder="******"
               forgotPasswordLink="/forgot-password"
-            /> */}
+            />
 
             <SubmitButton
             buttonIcon={LogIn}

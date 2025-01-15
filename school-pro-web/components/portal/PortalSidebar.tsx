@@ -2,7 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import {
+  Banknote,
     Bell,
+    BookOpen,
     ExternalLink,
     Home,
     LayoutGrid,
@@ -10,6 +12,7 @@ import {
     LucideIcon,
     Package,
     Package2,
+    ScrollText,
     ShoppingCart,
     Users,
   } from "lucide-react";
@@ -44,7 +47,7 @@ function renderLoggedInUserLinks(role:UserRole):NavLink[] {
     SUPER_ADMIN:[
         {
             title: "Dashboard",
-            href: "/dashboard",
+            href: "/portal",
             icon: Home,
           },
     ],
@@ -81,14 +84,18 @@ function renderLoggedInUserLinks(role:UserRole):NavLink[] {
         
           {
             title: "Exams",
-            href: "/dashboard/orders",
-            icon: ShoppingCart,
-            count: 6,
+            href: "/portal/teacher/exams",
+            icon: BookOpen,
           },
           {
-            title: "Products",
-            href: "/dashboard/products",
-            icon: Package,
+            title: "Question Bank",
+            href: "/portal/teacher/questions",
+            icon: Banknote,
+          },
+          {
+            title: "Exam Papers",
+            href: "/portal/teacher/exam-papers",
+            icon: ScrollText,
           },
     ],
     PARENT: [
@@ -140,7 +147,7 @@ function renderLoggedInUserLinks(role:UserRole):NavLink[] {
 export default function PortalSidebar({userRole}:{userRole:UserRole}) {
     const sidebarLinks = renderLoggedInUserLinks(userRole);
 
-    const {user:data, clearSession} = useUserSession();
+    const { clearSession} = useUserSession();
         
           const router = useRouter();
     
@@ -188,7 +195,7 @@ export default function PortalSidebar({userRole}:{userRole:UserRole}) {
                   </Link>
                 );
               })}
-              <Link
+              {/* <Link
                 href="/"
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
@@ -196,7 +203,7 @@ export default function PortalSidebar({userRole}:{userRole:UserRole}) {
               >
                 <ExternalLink className="h-4 w-4" />
                 Live Website
-              </Link>
+              </Link> */}
             </nav>
           </div>
 
