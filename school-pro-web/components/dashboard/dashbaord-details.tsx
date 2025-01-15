@@ -31,6 +31,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Analytics } from "@/actions/analytics";
 
 const salesData = [
   { name: "Sun", value: 0 },
@@ -94,19 +95,21 @@ const recentOrders = [
   },
 ];
 
-export default function DashbaordDetails() {
+export default function DashbaordDetails({analytics}:{analytics:Analytics[]}) {
   return (
     <div className="space-y-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
+          {analytics.length>0 && <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {analytics.map((item, i)=> {
+              return (
+                <Card key={i}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Sales
+                  {item.title}
                 </CardTitle>
                 <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">83</div>
+                <div className="text-2xl font-bold">{item.count.toLocaleString()}</div>
                 <Button
                   variant="link"
                   className="px-0 text-xs text-muted-foreground"
@@ -115,59 +118,12 @@ export default function DashbaordDetails() {
                 </Button>
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Revenue
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$17,884,143</div>
-                <Button
-                  variant="link"
-                  className="px-0 text-xs text-muted-foreground"
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Orders
-                </CardTitle>
-                <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">31</div>
-                <Button
-                  variant="link"
-                  className="px-0 text-xs text-muted-foreground"
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Products
-                </CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">21</div>
-                <Button
-                  variant="link"
-                  className="px-0 text-xs text-muted-foreground"
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
+            
+              )
+            })}
+        </div>
+        }
+          {/* <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0">
                 <div>
@@ -336,7 +292,7 @@ export default function DashbaordDetails() {
                 </TabsContent>
               </Tabs>
             </CardHeader>
-          </Card>
+          </Card> */}
       
     </div>
   )
