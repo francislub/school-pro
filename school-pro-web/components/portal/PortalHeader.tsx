@@ -18,7 +18,6 @@ import {
   Search,
   ShoppingCart,
   Users,
-  X,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
