@@ -66,12 +66,12 @@ export function StudentCard ({
                   </div>
             </CardContent>
             <CardFooter>
-                <Link href={`/portal/parent/student/${student.id}`} passHref>
-                <Button variant="outline" className="w-full">
+                <Button asChild variant="outline" className="w-full">
+                <Link href={`/portal/parent/student/${student.id}`} >
                    View Details
+                </Link>
                 </Button>
                 
-                </Link>
 
             </CardFooter>
 

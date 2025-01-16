@@ -1,26 +1,63 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Award } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Award } from "lucide-react";
 
 type LeadershipProps = {
-  selectedTerm: { term: string; year: string }
-}
+  selectedTerm: { term: string; year: string };
+};
+
+type LeadershipData = {
+  [year: string]: {
+    [term: string]: string[];
+  };
+};
 
 export function Leadership({ selectedTerm }: LeadershipProps) {
-  // This is where you'd fetch data based on the selected term
-  // For now, we'll use mock data
-  const leadershipData = {
-    '2023': {
-      '1': ['Class Representative', 'Science Club President', 'Basketball Team Captain', 'Volunteer at Local Animal Shelter'],
-      '2': ['Class Representative', 'Science Club President', 'Debate Team Member', 'Math Olympiad Participant'],
-      '3': ['Student Council Member', 'Science Fair Organizer', 'Basketball Team Captain', 'Environmental Club Leader'],
+  // Mock data structure for leadership activities
+  const leadershipData: LeadershipData = {
+    "2023": {
+      "1": [
+        "Class Representative",
+        "Science Club President",
+        "Basketball Team Captain",
+        "Volunteer at Local Animal Shelter",
+      ],
+      "2": [
+        "Class Representative",
+        "Science Club President",
+        "Debate Team Member",
+        "Math Olympiad Participant",
+      ],
+      "3": [
+        "Student Council Member",
+        "Science Fair Organizer",
+        "Basketball Team Captain",
+        "Environmental Club Leader",
+      ],
     },
-    '2022': {
-      '1': ['Class Monitor', 'Science Club Member', 'Junior Basketball Team', 'Art Club Participant'],
-      '2': ['Class Monitor', 'Science Club Vice President', 'Junior Basketball Team', 'School Newsletter Editor'],
-      '3': ['Class Representative', 'Science Club President', 'Junior Basketball Team Captain', 'Volunteer at Local Library'],
+    "2022": {
+      "1": [
+        "Class Monitor",
+        "Science Club Member",
+        "Junior Basketball Team",
+        "Art Club Participant",
+      ],
+      "2": [
+        "Class Monitor",
+        "Science Club Vice President",
+        "Junior Basketball Team",
+        "School Newsletter Editor",
+      ],
+      "3": [
+        "Class Representative",
+        "Science Club President",
+        "Junior Basketball Team Captain",
+        "Volunteer at Local Library",
+      ],
     },
-  }[selectedTerm.year]?.[selectedTerm.term] || []
+  };
+
+  // Fetch leadership activities based on the selected term
+  const activities = leadershipData[selectedTerm.year]?.[selectedTerm.term] || [];
 
   return (
     <Card className="bg-white shadow-lg">
@@ -29,14 +66,15 @@ export function Leadership({ selectedTerm }: LeadershipProps) {
         <Award className="h-6 w-6 text-blue-600" />
       </CardHeader>
       <CardContent>
-        <p className="mb-2 text-sm text-gray-500">Term {selectedTerm.term}, {selectedTerm.year}</p>
+        <p className="mb-2 text-sm text-gray-500">
+          Term {selectedTerm.term}, {selectedTerm.year}
+        </p>
         <ul className="list-disc list-inside space-y-2">
-          {leadershipData.map((activity, index) => (
+          {activities.map((activity, index) => (
             <li key={index}>{activity}</li>
           ))}
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }
-
