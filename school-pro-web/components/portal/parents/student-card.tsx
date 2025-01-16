@@ -66,7 +66,7 @@ export function StudentCard ({
                   </div>
             </CardContent>
             <CardFooter>
-                <Link href={`/student`} passHref>
+                <Link href={`/portal/parent/student/${student.id}`} passHref>
                 <Button variant="outline" className="w-full">
                    View Details
                 </Button>

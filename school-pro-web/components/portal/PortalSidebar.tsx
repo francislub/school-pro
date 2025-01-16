@@ -6,13 +6,13 @@ import {
     Bell,
     BookOpen,
     Calendar,
-    ExternalLink,
+    DollarSign,
     Home,
     LayoutGrid,
     LineChart,
     LucideIcon,
+    Mail,
     Package,
-    Package2,
     ScrollText,
     ShoppingCart,
     Users,
@@ -107,11 +107,16 @@ export function renderLoggedInUserLinks(role:UserRole):NavLink[] {
             href: "/portal/parent",
             icon: Users,
           },
-          // {
-          //   title: "Products",
-          //   href: "/dashboard/products",
-          //   icon: Package,
-          // },
+          {
+            title: "Messages",
+            href: "/portal/parent/messages",
+            icon: Mail,
+          },
+          {
+            title: "Payments",
+            href: "/portal/parent/payments",
+            icon: DollarSign,
+          },
     ],
     SECRETARY: [
         
