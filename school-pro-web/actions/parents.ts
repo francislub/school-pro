@@ -4,6 +4,7 @@ import axios from "axios"
 import { ParentProps } from "@/components/dashboard/forms/users/parent-form";
 import { Parent } from "@/types/types";
 import { revalidatePath } from "next/cache";
+import { BriefStudent } from "@/components/portal/parents/StudentList";
 
 const BASE_API_URL = process.env.API_URL || "";
 const api = axios.create({
@@ -42,6 +43,15 @@ export async function getAllParents(schoolId:string) {
         const response = await api.get(`/parents/school/${schoolId}`);
         const parents = response.data
         return parents as Parent[];
+    } catch (error) {
+        console.log(error)
+    }
+}
+export async function getStudentsByParentId(parentId:string) {
+    try {
+        const response = await api.get(`/students/parent/${parentId}`);
+        const students = response.data
+        return students as BriefStudent[];
     } catch (error) {
         console.log(error)
     }

@@ -6,8 +6,12 @@ import { redirect } from 'next/navigation'
 import React, { ReactNode } from 'react'
 
 export default async function DashboardLayout({children}: {children:ReactNode}) {
-  const user = await getServerUser()
-    if(!user){
+  const user = await getServerUser();
+  //  const allowedRole = 
+  if (!user){
+    redirect("/login")
+  }
+    if (user.role!=="ADMIN"){
       redirect("/login")
     }
   return (

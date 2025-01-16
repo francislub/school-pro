@@ -5,6 +5,7 @@ import {
   Banknote,
     Bell,
     BookOpen,
+    Calendar,
     ExternalLink,
     Home,
     LayoutGrid,
@@ -23,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { User, UserRole } from "@/types/types";
 import { useUserSession } from "@/store/auth";
+import Logo from "../logo";
 
 interface NavLink {
     title: string
@@ -35,7 +37,7 @@ interface NavLink {
 type RoleLinks = {
     [K in UserRole]: NavLink[]
 }
-function renderLoggedInUserLinks(role:UserRole):NavLink[] {
+export function renderLoggedInUserLinks(role:UserRole):NavLink[] {
   const commonLinks =[
     {
         title: "Dashboard",
@@ -101,16 +103,15 @@ function renderLoggedInUserLinks(role:UserRole):NavLink[] {
     PARENT: [
         
           {
-            title: "Students",
-            href: "/dashboard/orders",
-            icon: ShoppingCart,
-            count: 6,
+            title: "My Children",
+            href: "/portal/parent",
+            icon: Users,
           },
-          {
-            title: "Products",
-            href: "/dashboard/products",
-            icon: Package,
-          },
+          // {
+          //   title: "Products",
+          //   href: "/dashboard/products",
+          //   icon: Package,
+          // },
     ],
     SECRETARY: [
         
@@ -130,9 +131,8 @@ function renderLoggedInUserLinks(role:UserRole):NavLink[] {
         
         {
           title: "Timetable",
-          href: "/dashboard/orders",
-          icon: ShoppingCart,
-          count: 6,
+          href: "/portal/timetable",
+          icon: Calendar,
         },
         {
           title: "Products",
@@ -160,12 +160,9 @@ export default function PortalSidebar({userRole}:{userRole:UserRole}) {
   return (
     <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-            <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Package2 className="h-6 w-6" />
-              <span className="">Acme Inc</span>
-            </Link>
-            <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
+          <div className="flex h-14 items-center border-b lg:h-[60px]">
+            <Logo/>
+            <Button variant="outline" size="icon" className="ml-auto h-8 w-8 mr-6">
               <Bell className="h-4 w-4" />
               <span className="sr-only">Toggle notifications</span>
             </Button>

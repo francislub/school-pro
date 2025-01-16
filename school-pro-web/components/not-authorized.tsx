@@ -27,8 +27,8 @@ export default function NotAuthorized() {
 
                 <CardFooter className="flex justify-center">
                     <Button asChild>
-                        <Link href="/">
-                            Return to Home
+                        <Link href="/login">
+                            Return to Dashboard
                         </Link>
                     </Button>
 
