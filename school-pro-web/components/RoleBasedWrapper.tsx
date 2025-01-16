@@ -38,5 +38,9 @@ export default function RoleBasedWrapper({ children, allowedRoles }: Props) {
     return <NotAuthorized />;
   }
 
-  return <>{children}</>;
+  return (
+  <>
+  {children}
+  </>
+  );
 }

@@ -31,7 +31,7 @@ export async function createUser(data:UserCreateProps){
 
 export async function getProfileId(userId:string, role:string) {
      try {
-        const response = await api.get(`/users/${userId}? role=${role}`);
+        const response = await api.get(`/users/${userId}?role=${role}`);
         const profileData = response.data
         return profileData.id as string;
     } catch (error) {

@@ -1,3 +1,5 @@
+"use client";
+
 import RoleBasedWrapper from '@/components/RoleBasedWrapper'
 import React, { ReactNode } from 'react'
 
