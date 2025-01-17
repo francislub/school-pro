@@ -68,6 +68,22 @@ export type Department ={
   createdAt: string;
   updatedAt: string;
 };
+export interface Period {
+  id: string;
+  year: number;
+  term: number;
+  startDate: Date;
+  endDate: Date;
+  isActive: boolean;
+  schoolId: string;
+  
+  // createdAt: string;
+  // updatedAt: string;
+};
+
+export interface GroupedPeriods {
+[year: string]: Period[];
+}
 
 export type DepartmentBrief ={
   id: string;

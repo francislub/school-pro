@@ -2,7 +2,7 @@
 
 import { api } from "./schools"
 import axios from "axios"
-import { PeriodCreateProps } from "@/types/types";
+import { GroupedPeriods, Period, PeriodCreateProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
 export async function createPeriod(data: PeriodCreateProps){
@@ -21,19 +21,12 @@ export async function createPeriod(data: PeriodCreateProps){
    }
 }
 
-// export async function deleteDepartment(id:string) {
-//     console.log("deleted",id)
-//     return {
-//         ok: true
-//     };
-// }
-
-// export async function getAllDepartments(schoolId:string) {
-//     try {
-//         const response = await api.get(`/departments/school/${schoolId}`);
-//         const departments = response.data
-//         return departments as Department[];
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+export async function getAllPeriods(schoolId:string) {
+    try {
+        const response = await api.get(`/periods/${schoolId}`);
+        const periods = response.data.data;
+        return periods as Period[];
+    } catch (error) {
+        console.log(error)
+    }
+}

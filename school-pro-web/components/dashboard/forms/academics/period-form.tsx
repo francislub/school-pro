@@ -41,13 +41,14 @@ export default function PeriodForm({
   } = useForm<PeriodCreateProps>({
     defaultValues: {
       year: new Date().getFullYear(),
+      term: 1,
     },
   });
  
   const [loading, setLoading] = useState(false);
 
   const {school} = useSchoolStore(); 
-  const [isActive, setIsActive] = useState<boolean>(false)
+  const [isActive, setIsActive] = useState<boolean>(true)
  
   async function savePeriod(data: PeriodCreateProps) {
     // data.userId = userId;
@@ -55,7 +56,8 @@ export default function PeriodForm({
     data.year = Number(data.year)
     data.term = Number(data.term)
     data.startDate = convertDateToIso(data.startDate)
-    data.endDate = convertDateToIso(data.endDate)
+    data.endDate = convertDateToIso(data.endDate);
+    data.isActive = isActive
     try {
       setLoading(true);
       if (editingId) {
@@ -84,9 +86,9 @@ export default function PeriodForm({
                 <Pencil className="w-4 h-4 " />
               </button>
             ) : (
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button className="">
                 <Plus className="h-4 w-4"/>
-                <span className="sr-only">Add Term And Year</span>
+                <span className="">Add New Period</span>
                 </Button>
             )}
           </DialogTrigger>
@@ -94,7 +96,7 @@ export default function PeriodForm({
           <DialogContent>
             <DialogHeader>
               <DialogTitle>
-                {editingId ? "Edit Term And Year" : "Add New Term And Year"}
+                {editingId ? "Edit Term And Year" : "Add New Period"}
               </DialogTitle>
             </DialogHeader>
 
@@ -146,8 +148,9 @@ export default function PeriodForm({
                 </div>
                 <div className="py-3">
                   <SubmitButton
-                    title={editingId ? "Update" : "Add"}
+                    title={editingId ? "Update Period" : "Add Period"}
                     loading={loading}
+                    className="w-full"
                   />
                 </div>
               </div>
