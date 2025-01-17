@@ -293,3 +293,12 @@ export type UserCreateProps = {
 };
 
 export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'STUDENT' | 'PARENT'| 'SECRETARY';
+
+export type PeriodCreateProps ={
+  year: number;
+  term: number;
+  startDate: string;
+  endDate: string;
+  isActive: boolean;
+  schoolId: string;
+};

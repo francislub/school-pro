@@ -107,6 +107,14 @@ export default function AppSidebar() {
       icon: GraduationCap,
       items: [
         {
+          title: "Terms", 
+          url: "/dashboard/academics/terms",
+        },
+        {
+          title: "Classes and Streams", 
+          url: "/dashboard/academics/classes",
+        },
+        {
           title: "Subjects",
           url: "/dashboard/academics/subjects",
         },
@@ -114,10 +122,7 @@ export default function AppSidebar() {
           title: "Departments",
           url: "/dashboard/academics/departments",
         },
-        {
-          title: "Classes and Streams", 
-          url: "/dashboard/academics/classes",
-        },
+        
         {
           title: "Timetable",
           url: "/academic/timetable",

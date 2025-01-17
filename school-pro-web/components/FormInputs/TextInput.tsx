@@ -18,6 +18,8 @@ type TextInputProps = {
   unit?: string;
   placeholder?: string;
   icon?: any;
+  min?: number;
+  max?: number;
 };
 export default function TextInput({
   register,
@@ -29,6 +31,8 @@ export default function TextInput({
   unit,
   icon,
   placeholder,
+  min,
+  max,
 }: TextInputProps) {
   const Icon = icon;
   return (
@@ -63,6 +67,8 @@ export default function TextInput({
             </div>
           )}
           <input
+          min={min}
+          max={max}
             id={name}
             type={type}
             {...register(`${name}`, { required: true })}

@@ -1,17 +1,9 @@
 "use server"
 
 import axios from "axios"
-import { Department, DepartmentBrief, Subject, SubjectBrief, SubjectCreateProps } from "@/types/types";
+import { api } from "./schools"
+import { Subject, SubjectBrief, SubjectCreateProps } from "@/types/types";
 import { revalidatePath } from "next/cache";
-
-const BASE_API_URL = process.env.API_URL || "";
-const api = axios.create({
-    baseURL: BASE_API_URL,
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
 
 export async function createSubject(data:SubjectCreateProps){
     // const endpoint = '${BASE_API_URL}/v1/contacts'
